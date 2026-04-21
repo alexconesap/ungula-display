@@ -1,0 +1,23 @@
+{
+  "name": "UngulaDisplay",
+  "description": "Display UI and WiFi for ESP32-S3 with LovyanGFX",
+  "keywords": "display, ui, widgets, keyboard, keypad, wifi, lovyangfx",
+  "license": "Private License",
+  "authors": [
+    {
+      "name": "Alex Conesa",
+      "url": "https://github.com/alexconesap"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alexconesap/UngulaDisplay.git"
+  },
+  "version": "1.0.0",
+  "frameworks": ["arduino", "espidf", "*"],
+  "platforms": ["espressif32"],
+  "headers": "ungula_display_lib.h",
+  "build": {
+    "libArchive": false
+  }
+}
