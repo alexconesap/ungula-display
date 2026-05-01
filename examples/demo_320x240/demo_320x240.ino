@@ -33,53 +33,53 @@ static constexpr int SCREEN_H = 240;
 
 // ---- LGFX configuration for ILI9341 SPI ----
 class LGFX : public lgfx::LGFX_Device {
-   public:
-    lgfx::Panel_ILI9341 _panel;
-    lgfx::Bus_SPI _bus;
-    lgfx::Light_PWM _light;
+    public:
+        lgfx::Panel_ILI9341 _panel;
+        lgfx::Bus_SPI _bus;
+        lgfx::Light_PWM _light;
 
-    LGFX() {
-        // SPI bus
-        {
-            auto cfg = _bus.config();
-            cfg.spi_host = SPI2_HOST;
-            cfg.spi_mode = 0;
-            cfg.freq_write = 40000000;
-            cfg.freq_read = 16000000;
-            cfg.pin_sclk = 18;
-            cfg.pin_mosi = 23;
-            cfg.pin_miso = -1;
-            cfg.pin_dc = 2;
-            _bus.config(cfg);
+        LGFX() {
+            // SPI bus
+            {
+                auto cfg = _bus.config();
+                cfg.spi_host = SPI2_HOST;
+                cfg.spi_mode = 0;
+                cfg.freq_write = 40000000;
+                cfg.freq_read = 16000000;
+                cfg.pin_sclk = 18;
+                cfg.pin_mosi = 23;
+                cfg.pin_miso = -1;
+                cfg.pin_dc = 2;
+                _bus.config(cfg);
+            }
+            _panel.setBus(&_bus);
+
+            // Panel
+            {
+                auto cfg = _panel.config();
+                cfg.pin_cs = 15;
+                cfg.pin_rst = 4;
+                cfg.panel_width = SCREEN_W;
+                cfg.panel_height = SCREEN_H;
+                cfg.offset_x = 0;
+                cfg.offset_y = 0;
+                cfg.readable = false;
+                _panel.config(cfg);
+            }
+
+            // Backlight
+            {
+                auto cfg = _light.config();
+                cfg.pin_bl = 32;
+                cfg.invert = false;
+                cfg.freq = 44100;
+                cfg.pwm_channel = 7;
+                _light.config(cfg);
+                _panel.setLight(&_light);
+            }
+
+            setPanel(&_panel);
         }
-        _panel.setBus(&_bus);
-
-        // Panel
-        {
-            auto cfg = _panel.config();
-            cfg.pin_cs = 15;
-            cfg.pin_rst = 4;
-            cfg.panel_width = SCREEN_W;
-            cfg.panel_height = SCREEN_H;
-            cfg.offset_x = 0;
-            cfg.offset_y = 0;
-            cfg.readable = false;
-            _panel.config(cfg);
-        }
-
-        // Backlight
-        {
-            auto cfg = _light.config();
-            cfg.pin_bl = 32;
-            cfg.invert = false;
-            cfg.freq = 44100;
-            cfg.pwm_channel = 7;
-            _light.config(cfg);
-            _panel.setLight(&_light);
-        }
-
-        setPanel(&_panel);
-    }
 };
 
 // The global `gfx` instance that ui_widgets.cpp references
@@ -144,7 +144,8 @@ void setup() {
 
 void loop() {
     int32_t tx, ty;
-    if (!gfx.getTouch(&tx, &ty)) return;
+    if (!gfx.getTouch(&tx, &ty))
+        return;
 
     if (touchInRect(tx, ty, START_X, BTN_Y, BTN_W, BTN_H)) {
         drawButton(START_X, BTN_Y, BTN_W, BTN_H, "START", UI_COLOR_BTN_PRESSED);
