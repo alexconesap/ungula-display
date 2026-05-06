@@ -3,7 +3,6 @@
 // See LICENSE file for details.
 
 /**
- * @file ui_macros.h
  * @brief UI macros for display touch regions control
  */
 
