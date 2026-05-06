@@ -79,4 +79,4 @@ namespace ungula::display::ui {
         return s_tail != s_head;
     }
 
-    REMOVED_LINE::display::ui
+}  // namespace ungula::display::ui

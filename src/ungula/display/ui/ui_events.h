@@ -88,4 +88,4 @@ namespace ungula::display::ui {
     /// Check if there are pending events without consuming them.
     bool ui_event_pending();
 
-    REMOVED_LINE::display::ui
+}  // namespace ungula::display::ui

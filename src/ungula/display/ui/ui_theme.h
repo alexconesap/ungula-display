@@ -14,6 +14,7 @@
 #pragma once
 #include <stdint.h>
 
+namespace ungula::display {}
 using namespace ungula::display;
 
 // ============================================================================
