@@ -23,7 +23,7 @@
 
 #define EMBEDDED_UI
 #define LGFX_USE_V1
-#include <ungula_display.h>
+#include <ungula/display.h>
 
 #include <LovyanGFX.hpp>
 

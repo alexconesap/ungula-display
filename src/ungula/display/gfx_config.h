@@ -15,6 +15,8 @@
 #define GFX_CONFIG_H
 #include <cstdint>
 
+namespace ungula::display {
+
 struct GfxConfig {
         // -- Display resolution --
         int width = 800;
@@ -79,5 +81,7 @@ struct GfxConfig {
             return GfxConfig{};
         }
 };
+
+}  // namespace ungula::display
 
 #endif  // GFX_CONFIG_H

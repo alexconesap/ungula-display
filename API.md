@@ -7,7 +7,7 @@ modal keypad/keyboard, and a WiFi selector. The graphics driver is
 LovyanGFX-only; **U8g2 is supported only as a font source via
 `gfx_register_u8g2_font()`**, not as a rendering backend.
 
-Master include: `<ungula_display.h>` (pulls every public header below).
+Master include: `<ungula/display.h>` (pulls every public header below).
 
 ---
 
@@ -16,7 +16,7 @@ Master include: `<ungula_display.h>` (pulls every public header below).
 ### Use case: bring up the default 7" panel and draw something
 
 ```cpp
-#include <ungula_display.h>
+#include <ungula/display.h>
 
 void setup() {
     GfxConfig hw = GfxConfig::waveshare7inch();   // 800x480 defaults
@@ -42,7 +42,7 @@ call that library directly. `gfx_init()` does not touch the expander.
 ### Use case: poll touch and react to a button
 
 ```cpp
-#include <ungula_display.h>
+#include <ungula/display.h>
 
 constexpr int BX = 300, BY = 200, BW = 200, BH = 60;
 
@@ -63,7 +63,7 @@ returns `false` when no finger is down.
 ### Use case: numeric keypad modal
 
 ```cpp
-#include <ungula_display.h>
+#include <ungula/display.h>
 
 static void onValue(int value, void*) {
     // user confirmed `value`
@@ -95,7 +95,7 @@ When to use: integer entry with min/max validation. Use
 ### Use case: text keyboard modal
 
 ```cpp
-#include <ungula_display.h>
+#include <ungula/display.h>
 
 static void onText(const char* text, void*) {
     // confirmed text
@@ -117,7 +117,7 @@ When to use: free-form text entry up to 32 chars
 ### Use case: WiFi network selector
 
 ```cpp
-#include <ungula_display.h>
+#include <ungula/display.h>
 
 static void onConnect(const char* ssid, const char* password, void*) {
     // start connection attempt
@@ -146,7 +146,7 @@ host application via the scan callback.
 ### Use case: emit and consume UI events
 
 ```cpp
-#include <ungula_display.h>
+#include <ungula/display.h>
 
 using ungula::ui::UiEvent;
 using ungula::ui::UiEventType;
@@ -181,7 +181,7 @@ dropped.
 ### Use case: draw a 1-bit logo / a 2-bit indexed logo
 
 ```cpp
-#include <ungula_display.h>
+#include <ungula/display.h>
 
 extern const uint8_t logo_mono[] PROGMEM;     // from pngToArray.py --mode mono
 gfx_draw_bitmap(10, 5, logo_mono, /*w=*/300, /*h=*/60, UI_COLOR_TEXT_PRIMARY);
@@ -197,7 +197,7 @@ palette index 0 as transparent.
 ### Use case: register a U8g2 font and use it for text
 
 ```cpp
-#include <ungula_display.h>
+#include <ungula/display.h>
 #include <u8g2_fonts.h>  // your U8g2 font subset (PROGMEM uint8_t array)
 
 void setup() {

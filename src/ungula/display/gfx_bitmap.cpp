@@ -13,6 +13,8 @@
 
 #include "gfx_core.h"
 
+namespace ungula::display {
+
 void gfx_draw_bitmap(int pos_x, int pos_y, const uint8_t* bitmap, int width, int height,
                      uint16_t color) {
     gfx.drawBitmap(pos_x, pos_y, bitmap, width, height, color);
@@ -53,3 +55,5 @@ void gfx_draw_indexed_bitmap(int pos_x, int pos_y, const uint8_t* data, int widt
         }
     }
 }
+
+}  // namespace ungula::display

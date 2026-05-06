@@ -20,8 +20,10 @@
 
 #pragma once
 
-#include "display/gfx_core.h"
+#include "ungula/display/gfx_core.h"
 #include "ui_theme.h"
+
+using namespace ungula::display;
 
 // Callback function type for when value is confirmed
 typedef void (*keypad_callback_t)(int value, void* user_data);

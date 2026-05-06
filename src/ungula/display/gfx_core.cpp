@@ -12,6 +12,8 @@
 #include <cstdio>
 #include <new>
 
+namespace ungula::display {
+
 // Global display instance (configured in gfx_init, not in constructor)
 LGFX gfx;
 
@@ -152,3 +154,5 @@ const void* gfx_register_u8g2_font(const uint8_t* font_data) {
     s_custom_font_count++;
     return slot;
 }
+
+}  // namespace ungula::display

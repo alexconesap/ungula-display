@@ -22,8 +22,7 @@
 
 #include <cstdint>
 
-namespace ungula {
-    namespace ui {
+namespace ungula::display::ui {
 
         /// All possible UI events that screens can emit.
         /// Extend this enum for project-specific events if needed.
@@ -89,5 +88,4 @@ namespace ungula {
         /// Check if there are pending events without consuming them.
         bool ui_event_pending();
 
-    }  // namespace ui
-}  // namespace ungula
+    REMOVED_LINE::display::ui

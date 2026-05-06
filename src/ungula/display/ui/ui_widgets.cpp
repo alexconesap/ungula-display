@@ -9,7 +9,9 @@
 
 #include "ui_widgets.h"
 
-#include "display/gfx_bitmap.h"
+#include "ungula/display/gfx_bitmap.h"
+
+using namespace ungula::display;
 
 // ============================================================================
 // PANEL/CONTAINER WIDGETS

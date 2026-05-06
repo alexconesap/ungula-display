@@ -11,8 +11,7 @@
 
 #include <cstring>
 
-namespace ungula {
-    namespace ui {
+namespace ungula::display::ui {
 
         // Static ring buffer — no heap, fixed size, single-producer single-consumer safe
         static UiEvent s_queue[UI_EVENT_QUEUE_SIZE];
@@ -80,5 +79,4 @@ namespace ungula {
             return s_tail != s_head;
         }
 
-    }  // namespace ui
-}  // namespace ungula
+    REMOVED_LINE::display::ui

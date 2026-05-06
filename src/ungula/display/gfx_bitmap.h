@@ -13,6 +13,8 @@
 #pragma once
 #include <cstdint>
 
+namespace ungula::display {
+
 /**
  * @brief Draw a 1-bit monochrome bitmap (no scaling)
  *
@@ -66,3 +68,5 @@ void gfx_draw_bitmap_scaled(int32_t pos_x, int32_t pos_y, const uint8_t* bitmap,
  */
 void gfx_draw_indexed_bitmap(int pos_x, int pos_y, const uint8_t* data, int width, int height,
                              const uint16_t palette[4]);
+
+}  // namespace ungula::display

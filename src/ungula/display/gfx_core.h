@@ -21,6 +21,8 @@
 
 #include "gfx_config.h"
 
+namespace ungula::display {
+
 /**
  * @brief LGFX display driver for ESP32-S3 RGB displays with GT911 touch
  *
@@ -234,3 +236,5 @@ void gfx_drawRoundRect(int32_t pos_x, int32_t pos_y, int32_t width, int32_t heig
 void gfx_fillCircle(int32_t pos_x, int32_t pos_y, int32_t radius, uint16_t color);
 void gfx_fillTriangle(int32_t pos_x0, int32_t pos_y0, int32_t pos_x1, int32_t pos_y1,
                       int32_t pos_x2, int32_t pos_y2, uint16_t color);
+
+}  // namespace ungula::display

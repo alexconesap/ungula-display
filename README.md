@@ -11,9 +11,7 @@ Hardware configuration (resolution, pins, timing, pixel clock) is passed as a st
 ## Quick Start
 
 ```cpp
-#include <display/gfx_core.h>
-#include <ui/ui_widgets.h>
-#include <ui/ui_theme.h>
+#include <ungula/display.h>
 
 // Use default hardware config (Waveshare 7" 800x480)
 GfxConfig hw = GfxConfig::waveshare7inch();
@@ -91,7 +89,7 @@ void drawMainScreen() {
 Pop up a keypad for the user to enter a number:
 
 ```cpp
-#include <ui/ui_keypad.h>
+#include <ungula/display.h>
 
 void onTempButtonPressed() {
     keypad_show(
@@ -122,7 +120,7 @@ if (keypad_is_visible()) {
 Full QWERTY keyboard for names, passwords, etc.:
 
 ```cpp
-#include <ui/ui_keyboard.h>
+#include <ungula/display.h>
 
 keyboard_show(
     50, 50,                  // position
@@ -140,7 +138,7 @@ keyboard_show(
 Scan and connect to WiFi networks:
 
 ```cpp
-#include <ui/ui_wifi.h>
+#include <ungula/display.h>
 
 wifi_selector_show(
     10, 80,
@@ -212,7 +210,7 @@ python3 tools/pngToArray.py my_logo.png --mode color --name app_logo > logo_data
 For logos or icons generated with `--mode color`, use `gfx_draw_indexed_bitmap()`:
 
 ```cpp
-#include <display/gfx_bitmap.h>
+#include <ungula/display.h>
 
 // Logo 287x58 — 2-bit indexed, 3 colors, 4176 bytes
 // Palette: 0=transparent, 1=text(white), 2=blue, 3=purple

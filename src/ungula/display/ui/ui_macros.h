@@ -10,6 +10,8 @@
 #pragma once
 #include <stdint.h>
 
+using namespace ungula::display;
+
 // ============================================================================
 // HELPER MACROS for touch region hit testing
 // ============================================================================

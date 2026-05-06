@@ -19,8 +19,10 @@
 #pragma once
 #include <cstdint>
 
-#include "display/gfx_core.h"
+#include "ungula/display/gfx_core.h"
 #include "ui_theme.h"
+
+using namespace ungula::display;
 
 // Maximum networks to display
 #define WIFI_MAX_NETWORKS 10

@@ -13,10 +13,10 @@
     "type": "git",
     "url": "https://github.com/alexconesap/ungula-display.git"
   },
-  "version": "1.0.2",
+  "version": "1.2.0",
   "frameworks": ["arduino", "espidf", "*"],
   "platforms": ["espressif32"],
-  "headers": "ungula_display.h",
+  "headers": "ungula/display.h",
   "build": {
     "libArchive": false
   }

@@ -12,7 +12,7 @@
 // Board:    esp32:esp32:esp32s3 (with OPI PSRAM, 8MB Flash)
 // Defines:  -DEMBEDDED_UI
 
-#include <ungula_display.h>
+#include <ungula/display.h>
 
 // Button layout (centered on screen)
 static constexpr int BTN_W = 200;

@@ -22,8 +22,10 @@
 #pragma once
 #include <cstdint>
 
-#include "display/gfx_core.h"
+#include "ungula/display/gfx_core.h"
 #include "ui_theme.h"
+
+using namespace ungula::display;
 
 // Callback function type for when text is confirmed
 typedef void (*keyboard_callback_t)(const char* text, void* user_data);
