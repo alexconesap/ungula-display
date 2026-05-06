@@ -24,68 +24,68 @@
 
 namespace ungula::display::ui {
 
-        /// All possible UI events that screens can emit.
-        /// Extend this enum for project-specific events if needed.
-        enum class UiEventType : uint8_t {
-            NONE = 0,
+    /// All possible UI events that screens can emit.
+    /// Extend this enum for project-specific events if needed.
+    enum class UiEventType : uint8_t {
+        NONE = 0,
 
-            // Main screen controls
-            HOME_PRESSED,
-            START_PRESSED,
-            STOP_PRESSED,
-            JOG_UP_PRESSED,
-            JOG_UP_RELEASED,
-            JOG_DOWN_PRESSED,
-            JOG_DOWN_RELEASED,
-            JOG_LEFT_PRESSED,
-            JOG_LEFT_RELEASED,
-            JOG_RIGHT_PRESSED,
-            JOG_RIGHT_RELEASED,
+        // Main screen controls
+        HOME_PRESSED,
+        START_PRESSED,
+        STOP_PRESSED,
+        JOG_UP_PRESSED,
+        JOG_UP_RELEASED,
+        JOG_DOWN_PRESSED,
+        JOG_DOWN_RELEASED,
+        JOG_LEFT_PRESSED,
+        JOG_LEFT_RELEASED,
+        JOG_RIGHT_PRESSED,
+        JOG_RIGHT_RELEASED,
 
-            // Program management
-            PROGRAM_SELECTED,         // param1 = program index
-            PROGRAM_EDIT_REQUESTED,   // param1 = program index
-            PROGRAM_FIELD_SAVED,      // param1 = program index
-            PROGRAM_SETTINGS_CLOSED,  // param1 = edited program index
+        // Program management
+        PROGRAM_SELECTED,         // param1 = program index
+        PROGRAM_EDIT_REQUESTED,   // param1 = program index
+        PROGRAM_FIELD_SAVED,      // param1 = program index
+        PROGRAM_SETTINGS_CLOSED,  // param1 = edited program index
 
-            // WiFi
-            WIFI_SCAN_REQUESTED,
-            WIFI_CONNECT,         // strParam = ssid, strParam2 = password
-            WIFI_ENABLE_CHANGED,  // param1 = enabled (1/0)
+        // WiFi
+        WIFI_SCAN_REQUESTED,
+        WIFI_CONNECT,         // strParam = ssid, strParam2 = password
+        WIFI_ENABLE_CHANGED,  // param1 = enabled (1/0)
 
-            // System
-            PAIRING_ENABLE,
-            PAIRING_DISABLE,
-            CALIBRATION_START,
-            CALIBRATION_STOP,
-            OTA_UPDATE_REQUESTED,
-            REBOOT_REQUESTED,
-        };
+        // System
+        PAIRING_ENABLE,
+        PAIRING_DISABLE,
+        CALIBRATION_START,
+        CALIBRATION_STOP,
+        OTA_UPDATE_REQUESTED,
+        REBOOT_REQUESTED,
+    };
 
-        /// A single UI event with optional parameters.
-        struct UiEvent {
-                UiEventType type = UiEventType::NONE;
-                int32_t param1 = 0;
-                int32_t param2 = 0;
-                const char* strParam =
-                        nullptr;  // valid until the next event is pushed that uses strParam
-                const char* strParam2 = nullptr;
-        };
+    /// A single UI event with optional parameters.
+    struct UiEvent {
+            UiEventType type = UiEventType::NONE;
+            int32_t param1 = 0;
+            int32_t param2 = 0;
+            const char* strParam =
+                    nullptr;  // valid until the next event is pushed that uses strParam
+            const char* strParam2 = nullptr;
+    };
 
-        /// Maximum events in the queue (power of 2 for efficient modulo)
-        static constexpr uint8_t UI_EVENT_QUEUE_SIZE = 16;
+    /// Maximum events in the queue (power of 2 for efficient modulo)
+    static constexpr uint8_t UI_EVENT_QUEUE_SIZE = 16;
 
-        /// Initialize the event queue (call once at startup)
-        void ui_event_init();
+    /// Initialize the event queue (call once at startup)
+    void ui_event_init();
 
-        /// Push an event into the queue. Silently dropped if the queue is full.
-        void ui_event_push(UiEventType type, int32_t p1 = 0, int32_t p2 = 0,
-                           const char* str = nullptr, const char* str2 = nullptr);
+    /// Push an event into the queue. Silently dropped if the queue is full.
+    void ui_event_push(UiEventType type, int32_t p1 = 0, int32_t p2 = 0, const char* str = nullptr,
+                       const char* str2 = nullptr);
 
-        /// Poll the next event from the queue. Returns true if an event was available.
-        bool ui_event_poll(UiEvent& out);
+    /// Poll the next event from the queue. Returns true if an event was available.
+    bool ui_event_poll(UiEvent& out);
 
-        /// Check if there are pending events without consuming them.
-        bool ui_event_pending();
+    /// Check if there are pending events without consuming them.
+    bool ui_event_pending();
 
     REMOVED_LINE::display::ui

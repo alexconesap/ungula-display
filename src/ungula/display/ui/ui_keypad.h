@@ -20,8 +20,8 @@
 
 #pragma once
 
-#include "ungula/display/gfx_core.h"
 #include "ui_theme.h"
+#include "ungula/display/gfx_core.h"
 
 using namespace ungula::display;
 
