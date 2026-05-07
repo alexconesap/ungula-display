@@ -29,6 +29,8 @@ ui_draw_button(300, 200, 200, 60, "START", UI_COLOR_BTN_SUCCESS);
 If you are using a different panel, override the config:
 
 ```cpp
+#include <ungula/display.h>
+
 GfxConfig hw;
 hw.width = 480;
 hw.height = 640;
@@ -43,6 +45,8 @@ gfx_init(hw);
 ### Touch Handling
 
 ```cpp
+#include <ungula/display.h>
+
 void loop() {
     int32_t tx, ty;
     if (gfx_get_touch(&tx, &ty)) {
@@ -60,6 +64,8 @@ void loop() {
 A typical screen with header, content panel, status indicator, and buttons:
 
 ```cpp
+#include <ungula/display.h>
+
 void drawMainScreen() {
     gfx.fillScreen(UI_COLOR_BG_DARK);
 
@@ -171,6 +177,8 @@ python3 tools/pngToArray.py my_logo.png
 This prints a `PROGMEM` array to stdout. Paste it into your code and draw it like this:
 
 ```cpp
+#include <ungula/display.h>
+
 gfx.drawBitmap(10, 5, logo_data, LOGO_W, LOGO_H, UI_COLOR_TEXT_PRIMARY);
 ```
 
@@ -260,6 +268,8 @@ The ESP32-S3 GPIO matrix allows both on the same physical pins (SDA=8, SCL=9).
 The backlight and reset pins go through a CH422G IO expander, so you need to initialize it before the display will show anything:
 
 ```cpp
+#include <ungula/display.h>
+
 ExpanderInit(8, 9);   // I2C SDA, SCL (defaults)
 BLset(HIGH);          // turn on backlight
 BLblink();            // visual feedback blink
@@ -291,12 +301,16 @@ The library provides a global vertical offset that shifts all text rendering up 
 Set the offset once (typically when the user switches language):
 
 ```cpp
+#include <ungula/display.h>
+
 gfx_set_font_y_offset(-3);  // shift text 3 pixels up
 ```
 
 From that point, all text wrappers apply the correction:
 
 ```cpp
+#include <ungula/display.h>
+
 gfx_setCursor(100, 200);         // actual cursor: (100, 197)
 gfx.print("Configuración");      // prints at y=197
 
@@ -325,6 +339,8 @@ Graphics primitives like `gfx.fillRect()`, `gfx.drawRoundRect()`, `gfx.fillCircl
 If you use `lib_i18n` for multi-language support, each language can register a vertical offset at boot:
 
 ```cpp
+#include <ungula/display.h>
+
 i18n::addLanguage(i18n::Lang::English,    strings_en, N,  0);  // baseline
 i18n::addLanguage(i18n::Lang::Spanish,    strings_es, N, -3);  // 3px up
 i18n::addLanguage(i18n::Lang::Vietnamese, strings_vi, N, -5);  // 5px up
@@ -333,6 +349,8 @@ i18n::addLanguage(i18n::Lang::Vietnamese, strings_vi, N, -5);  // 5px up
 Then on language change:
 
 ```cpp
+#include <ungula/display.h>
+
 i18n::setLanguage(newLang);
 gfx_set_font_y_offset(i18n::fontYOffset());
 ```
