@@ -33,53 +33,54 @@ static constexpr int SCREEN_H = 240;
 
 // ---- LGFX configuration for ILI9341 SPI ----
 class LGFX : public lgfx::LGFX_Device {
-    public:
-        lgfx::Panel_ILI9341 _panel;
-        lgfx::Bus_SPI _bus;
-        lgfx::Light_PWM _light;
+public:
+    lgfx::Panel_ILI9341 _panel;
+    lgfx::Bus_SPI _bus;
+    lgfx::Light_PWM _light;
 
-        LGFX() {
-            // SPI bus
-            {
-                auto cfg = _bus.config();
-                cfg.spi_host = SPI2_HOST;
-                cfg.spi_mode = 0;
-                cfg.freq_write = 40000000;
-                cfg.freq_read = 16000000;
-                cfg.pin_sclk = 18;
-                cfg.pin_mosi = 23;
-                cfg.pin_miso = -1;
-                cfg.pin_dc = 2;
-                _bus.config(cfg);
-            }
-            _panel.setBus(&_bus);
-
-            // Panel
-            {
-                auto cfg = _panel.config();
-                cfg.pin_cs = 15;
-                cfg.pin_rst = 4;
-                cfg.panel_width = SCREEN_W;
-                cfg.panel_height = SCREEN_H;
-                cfg.offset_x = 0;
-                cfg.offset_y = 0;
-                cfg.readable = false;
-                _panel.config(cfg);
-            }
-
-            // Backlight
-            {
-                auto cfg = _light.config();
-                cfg.pin_bl = 32;
-                cfg.invert = false;
-                cfg.freq = 44100;
-                cfg.pwm_channel = 7;
-                _light.config(cfg);
-                _panel.setLight(&_light);
-            }
-
-            setPanel(&_panel);
+    LGFX()
+    {
+        // SPI bus
+        {
+            auto cfg = _bus.config();
+            cfg.spi_host = SPI2_HOST;
+            cfg.spi_mode = 0;
+            cfg.freq_write = 40000000;
+            cfg.freq_read = 16000000;
+            cfg.pin_sclk = 18;
+            cfg.pin_mosi = 23;
+            cfg.pin_miso = -1;
+            cfg.pin_dc = 2;
+            _bus.config(cfg);
         }
+        _panel.setBus(&_bus);
+
+        // Panel
+        {
+            auto cfg = _panel.config();
+            cfg.pin_cs = 15;
+            cfg.pin_rst = 4;
+            cfg.panel_width = SCREEN_W;
+            cfg.panel_height = SCREEN_H;
+            cfg.offset_x = 0;
+            cfg.offset_y = 0;
+            cfg.readable = false;
+            _panel.config(cfg);
+        }
+
+        // Backlight
+        {
+            auto cfg = _light.config();
+            cfg.pin_bl = 32;
+            cfg.invert = false;
+            cfg.freq = 44100;
+            cfg.pwm_channel = 7;
+            _light.config(cfg);
+            _panel.setLight(&_light);
+        }
+
+        setPanel(&_panel);
+    }
 };
 
 // The global `gfx` instance that ui_widgets.cpp references
@@ -103,7 +104,8 @@ static constexpr int TITLE_Y = 20;
 // In a full project you would refactor gfx_core.h to support multiple
 // display configurations and use the library widgets directly.
 
-void drawButton(int x, int y, int w, int h, const char* text, uint16_t bgColor) {
+void drawButton(int x, int y, int w, int h, const char *text, uint16_t bgColor)
+{
     gfx.fillRoundRect(x, y, w, h, 5, bgColor);
     gfx.setTextSize(2);
     gfx.setTextColor(UI_COLOR_TEXT_PRIMARY);
@@ -111,11 +113,13 @@ void drawButton(int x, int y, int w, int h, const char* text, uint16_t bgColor) 
     gfx.drawCentreString(text, x + w / 2, textY);
 }
 
-bool touchInRect(int tx, int ty, int x, int y, int w, int h) {
+bool touchInRect(int tx, int ty, int x, int y, int w, int h)
+{
     return (tx >= x && tx < x + w && ty >= y && ty < y + h);
 }
 
-void drawScreen() {
+void drawScreen()
+{
     gfx.fillScreen(UI_COLOR_BG_DARK);
 
     // White 1px border
@@ -131,18 +135,20 @@ void drawScreen() {
     drawButton(STOP_X, BTN_Y, BTN_W, BTN_H, "STOP", UI_COLOR_BTN_DANGER);
 }
 
-void setup() {
+void setup()
+{
     Serial.begin(115200);
 
     gfx.init();
-    gfx.setRotation(1);  // Landscape
+    gfx.setRotation(1); // Landscape
     gfx.setBrightness(200);
 
     drawScreen();
     Serial.println("UngulaDisplay demo ready (320x240)");
 }
 
-void loop() {
+void loop()
+{
     int32_t tx, ty;
     if (!gfx.getTouch(&tx, &ty))
         return;

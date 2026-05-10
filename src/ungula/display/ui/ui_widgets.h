@@ -35,9 +35,8 @@ using namespace ungula::display;
  * @param border_color Border color (0 for no border)
  * @param radius Corner radius
  */
-void ui_draw_panel(int pos_x, int pos_y, int width, int height,
-                   uint16_t fill_color = UI_COLOR_BG_PANEL, uint16_t border_color = UI_COLOR_BORDER,
-                   int radius = UI_RADIUS_NORMAL);
+void ui_draw_panel(int pos_x, int pos_y, int width, int height, uint16_t fill_color = UI_COLOR_BG_PANEL,
+                   uint16_t border_color = UI_COLOR_BORDER, int radius = UI_RADIUS_NORMAL);
 
 /**
  * @brief Draw the main content frame (outer border of main area)
@@ -53,8 +52,8 @@ void ui_draw_content_frame();
  * @param border_color Border color
  * @param border_width Border width (Defaults to 1px)
  */
-void ui_draw_box(int pos_x, int pos_y, int width, int height,
-                 uint16_t border_color = UI_COLOR_BORDER, int border_width = 1);
+void ui_draw_box(int pos_x, int pos_y, int width, int height, uint16_t border_color = UI_COLOR_BORDER,
+                 int border_width = 1);
 
 /**
  * @brief Clear the screen with a background color
@@ -78,9 +77,8 @@ void ui_clear(uint16_t background_color = UI_COLOR_BG_PANEL);
  * @param text_size Text size multiplier
  * @param radius Corner radius
  */
-void ui_draw_button(int pos_x, int pos_y, int width, int height, const char* text,
-                    uint16_t bg_color = UI_COLOR_BTN_PRIMARY,
-                    uint16_t text_color = UI_COLOR_TEXT_PRIMARY,
+void ui_draw_button(int pos_x, int pos_y, int width, int height, const char *text,
+                    uint16_t bg_color = UI_COLOR_BTN_PRIMARY, uint16_t text_color = UI_COLOR_TEXT_PRIMARY,
                     int text_size = UI_TEXT_SIZE_NORMAL, int radius = UI_RADIUS_NORMAL);
 
 /**
@@ -96,9 +94,8 @@ void ui_draw_button(int pos_x, int pos_y, int width, int height, const char* tex
  * @param icon_color Icon color
  * @param radius Corner radius
  */
-void ui_draw_icon_button(int pos_x, int pos_y, int width, int height, const uint8_t* icon,
-                         int icon_w, int icon_h, uint16_t bg_color = UI_COLOR_BTN_PRIMARY,
-                         uint16_t icon_color = UI_COLOR_TEXT_PRIMARY,
+void ui_draw_icon_button(int pos_x, int pos_y, int width, int height, const uint8_t *icon, int icon_w, int icon_h,
+                         uint16_t bg_color = UI_COLOR_BTN_PRIMARY, uint16_t icon_color = UI_COLOR_TEXT_PRIMARY,
                          int radius = UI_RADIUS_NORMAL);
 
 // ============================================================================
@@ -123,7 +120,7 @@ void ui_draw_led(int pos_x, int pos_y, bool is_on, int radius = UI_LED_RADIUS);
  * @param text Status text
  * @param bg_color Background color
  */
-void ui_draw_status_bar(int pos_x, int pos_y, int width, int height, const char* text,
+void ui_draw_status_bar(int pos_x, int pos_y, int width, int height, const char *text,
                         uint16_t bg_color = UI_COLOR_ACCENT_DIM);
 
 // ============================================================================
@@ -141,9 +138,8 @@ void ui_draw_status_bar(int pos_x, int pos_y, int width, int height, const char*
  * @param unit Unit text (optional, grey)
  * @param border_color Border color
  */
-void ui_draw_value_box(int pos_x, int pos_y, int width, int height, const char* label,
-                       const char* value, const char* unit = nullptr,
-                       uint16_t border_color = UI_COLOR_SUCCESS);
+void ui_draw_value_box(int pos_x, int pos_y, int width, int height, const char *label, const char *value,
+                       const char *unit = nullptr, uint16_t border_color = UI_COLOR_SUCCESS);
 
 /**
  * @brief Draw a temperature display (4-zone layout)
@@ -152,7 +148,7 @@ void ui_draw_value_box(int pos_x, int pos_y, int width, int height, const char* 
  * @param label Label text
  * @param temp Temperature value
  */
-void ui_draw_temp_display(int pos_x, int pos_y, const char* label, int temp);
+void ui_draw_temp_display(int pos_x, int pos_y, const char *label, int temp);
 
 // ============================================================================
 // TEXT HELPERS
@@ -167,8 +163,8 @@ void ui_draw_temp_display(int pos_x, int pos_y, const char* label, int temp);
  * @param color Text color
  * @param size Text size
  */
-void ui_draw_text_centered(int pos_x, int pos_y, int width, const char* text,
-                           uint16_t color = UI_COLOR_TEXT_PRIMARY, int size = UI_TEXT_SIZE_NORMAL);
+void ui_draw_text_centered(int pos_x, int pos_y, int width, const char *text, uint16_t color = UI_COLOR_TEXT_PRIMARY,
+                           int size = UI_TEXT_SIZE_NORMAL);
 
 /**
  * @brief Draw text at position
@@ -178,7 +174,7 @@ void ui_draw_text_centered(int pos_x, int pos_y, int width, const char* text,
  * @param color Text color
  * @param size Text size
  */
-void ui_draw_text(int pos_x, int pos_y, const char* text, uint16_t color = UI_COLOR_TEXT_PRIMARY,
+void ui_draw_text(int pos_x, int pos_y, const char *text, uint16_t color = UI_COLOR_TEXT_PRIMARY,
                   int size = UI_TEXT_SIZE_NORMAL);
 
 // ============================================================================

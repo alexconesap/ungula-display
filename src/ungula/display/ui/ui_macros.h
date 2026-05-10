@@ -16,8 +16,7 @@ using namespace ungula::display;
 // ============================================================================
 
 // Check if touch (tx, ty) is within a given rectangular region (x, y, w, h)
-#define TOUCH_IN_RECT(tx, ty, x, y, w, h) \
-    ((tx) >= (x) && (tx) <= ((x) + (w)) && (ty) >= (y) && (ty) <= ((y) + (h)))
+#define TOUCH_IN_RECT(tx, ty, x, y, w, h) ((tx) >= (x) && (tx) <= ((x) + (w)) && (ty) >= (y) && (ty) <= ((y) + (h)))
 
 // Sample usage:
 // Check if touch is within a control button by index (0=Home, 1=Up, 2=Down, 3=Left, 4=Right) that

@@ -14,7 +14,9 @@
 #pragma once
 #include <stdint.h>
 
-namespace ungula::display {}
+namespace ungula::display
+{
+}
 using namespace ungula::display;
 
 // ============================================================================
@@ -22,26 +24,26 @@ using namespace ungula::display;
 // ============================================================================
 
 // Background colors
-#define UI_COLOR_BG_DARK 0x0063   // Dark navy blue - main background
-#define UI_COLOR_BG_PANEL 0x0064  // Slightly lighter - panel backgrounds
+#define UI_COLOR_BG_DARK 0x0063 // Dark navy blue - main background
+#define UI_COLOR_BG_PANEL 0x0064 // Slightly lighter - panel backgrounds
 
 // Primary accent colors
-#define UI_COLOR_ACCENT 0x19CB      // Cyan - primary buttons, borders
-#define UI_COLOR_ACCENT_DIM 0x8496  // Grey - pressed state, secondary
+#define UI_COLOR_ACCENT 0x19CB // Cyan - primary buttons, borders
+#define UI_COLOR_ACCENT_DIM 0x8496 // Grey - pressed state, secondary
 
 // Status colors
-#define UI_COLOR_SUCCESS 0x1D4E  // Green - connected, success, START
-#define UI_COLOR_DANGER 0xF1CA   // Red - disconnected, danger, STOP
-#define UI_COLOR_WARNING 0xFD20  // Orange/yellow - warnings
+#define UI_COLOR_SUCCESS 0x1D4E // Green - connected, success, START
+#define UI_COLOR_DANGER 0xF1CA // Red - disconnected, danger, STOP
+#define UI_COLOR_WARNING 0xFD20 // Orange/yellow - warnings
 
 // Text colors
-#define UI_COLOR_TEXT_PRIMARY 0xFFFF    // White - main text
-#define UI_COLOR_TEXT_SECONDARY 0x8496  // Grey - labels, secondary text
-#define UI_COLOR_TEXT_HEADER 0xEF7E     // Off-white - header text
+#define UI_COLOR_TEXT_PRIMARY 0xFFFF // White - main text
+#define UI_COLOR_TEXT_SECONDARY 0x8496 // Grey - labels, secondary text
+#define UI_COLOR_TEXT_HEADER 0xEF7E // Off-white - header text
 
 // Border colors
-#define UI_COLOR_BORDER 0x19CB      // Cyan - standard borders
-#define UI_COLOR_BORDER_DIM 0x39E7  // Dim grey - subtle borders
+#define UI_COLOR_BORDER 0x19CB // Cyan - standard borders
+#define UI_COLOR_BORDER_DIM 0x39E7 // Dim grey - subtle borders
 
 // Convenience aliases for common use cases
 #define UI_COLOR_BTN_PRIMARY UI_COLOR_ACCENT

@@ -28,7 +28,7 @@
 using namespace ungula::display;
 
 // Callback function type for when text is confirmed
-typedef void (*keyboard_callback_t)(const char* text, void* user_data);
+typedef void (*keyboard_callback_t)(const char *text, void *user_data);
 
 // ============================================================================
 // KEYBOARD CONFIGURATION
@@ -61,9 +61,8 @@ typedef void (*keyboard_callback_t)(const char* text, void* user_data);
  * @param user_data User data passed to callback
  * @param password_mode If true, initially mask password with asterisks
  */
-void keyboard_show(int pos_x, int pos_y, const char* title, const char* initial_text,
-                   int max_length, keyboard_callback_t callback, void* user_data = nullptr,
-                   bool password_mode = false);
+void keyboard_show(int pos_x, int pos_y, const char *title, const char *initial_text, int max_length,
+                   keyboard_callback_t callback, void *user_data = nullptr, bool password_mode = false);
 
 /**
  * @brief Hide the keyboard (cancel without saving)
@@ -94,4 +93,4 @@ void keyboard_draw();
  * @brief Get current input text
  * @return Pointer to current text buffer (do not modify)
  */
-const char* keyboard_get_text();
+const char *keyboard_get_text();

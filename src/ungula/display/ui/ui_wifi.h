@@ -29,22 +29,22 @@ using namespace ungula::display;
 
 // Network info structure
 struct WiFiNetworkInfo {
-        char ssid[33];  // SSID (max 32 chars + null)
-        int rssi;       // Signal strength
-        bool secure;    // Has password
+    char ssid[33]; // SSID (max 32 chars + null)
+    int rssi; // Signal strength
+    bool secure; // Has password
 };
 
 // Callback function type for when connection is requested
 // Called with SSID and password when user confirms
 // password will be empty string if network is open
-typedef void (*wifi_connect_callback_t)(const char* ssid, const char* password, void* user_data);
+typedef void (*wifi_connect_callback_t)(const char *ssid, const char *password, void *user_data);
 
 // Callback function type for when scan is requested
 // Implementation should call wifi_set_networks() when scan completes
-typedef void (*wifi_scan_callback_t)(void* user_data);
+typedef void (*wifi_scan_callback_t)(void *user_data);
 
 // Callback function type for when the enable checkbox is toggled
-typedef void (*wifi_enable_callback_t)(bool enabled, void* user_data);
+typedef void (*wifi_enable_callback_t)(bool enabled, void *user_data);
 
 // ============================================================================
 // WIFI SELECTOR CONFIGURATION
@@ -60,19 +60,19 @@ typedef void (*wifi_enable_callback_t)(bool enabled, void* user_data);
 
 /// String IDs used by the WiFi selector component
 enum WifiStringId : uint8_t {
-    WIFI_STR_TITLE = 0,     // "WiFi Networks"
-    WIFI_STR_SCANNING,      // "Scanning..."
-    WIFI_STR_NO_NETWORKS,   // "No networks found"
-    WIFI_STR_PUSH_SCAN,     // "Push refresh to scan"
-    WIFI_STR_BTN_SCAN,      // "SCAN"
-    WIFI_STR_BTN_CONNECT,   // "CONNECT"
-    WIFI_STR_PASSWORD_FOR,  // "Password for: %s"
-    WIFI_STR_ENABLE,        // "Enable Internet"
+    WIFI_STR_TITLE = 0, // "WiFi Networks"
+    WIFI_STR_SCANNING, // "Scanning..."
+    WIFI_STR_NO_NETWORKS, // "No networks found"
+    WIFI_STR_PUSH_SCAN, // "Push refresh to scan"
+    WIFI_STR_BTN_SCAN, // "SCAN"
+    WIFI_STR_BTN_CONNECT, // "CONNECT"
+    WIFI_STR_PASSWORD_FOR, // "Password for: %s"
+    WIFI_STR_ENABLE, // "Enable Internet"
     WIFI_STR_COUNT
 };
 
 /// String provider callback type. Returns translated string for the given ID.
-typedef const char* (*wifi_string_hook_t)(WifiStringId id);
+typedef const char *(*wifi_string_hook_t)(WifiStringId id);
 
 /**
  * @brief Register a string provider for i18n support
@@ -97,9 +97,8 @@ void wifi_set_string_hook(wifi_string_hook_t hook);
  * @param user_data User data passed to callbacks
  */
 void wifi_selector_show(int pos_x, int pos_y, wifi_connect_callback_t connect_callback,
-                        wifi_scan_callback_t scan_callback = nullptr,
-                        wifi_enable_callback_t enable_callback = nullptr, bool enabled = true,
-                        void* user_data = nullptr);
+                        wifi_scan_callback_t scan_callback = nullptr, wifi_enable_callback_t enable_callback = nullptr,
+                        bool enabled = true, void *user_data = nullptr);
 
 /**
  * @brief Set the enabled state (shows/hides body elements).
@@ -127,7 +126,7 @@ bool wifi_selector_is_visible();
  * Call this from your scan callback when networks are found.
  * The component will copy the data internally.
  */
-void wifi_set_networks(const WiFiNetworkInfo* networks, int count);
+void wifi_set_networks(const WiFiNetworkInfo *networks, int count);
 
 /**
  * @brief Set scanning state (shows spinner/message)
@@ -140,7 +139,7 @@ void wifi_set_scanning(bool scanning);
  * @param message Status message (nullptr to clear)
  * @param is_error true if this is an error message
  */
-void wifi_set_status(const char* message, bool is_error = false);
+void wifi_set_status(const char *message, bool is_error = false);
 
 /**
  * @brief Handle touch input for WiFi selector
@@ -161,10 +160,10 @@ void wifi_selector_draw();
  * When set, the network list highlights this SSID with a "connected" indicator.
  * Pass nullptr or empty string to clear.
  */
-void wifi_set_connected_ssid(const char* ssid);
+void wifi_set_connected_ssid(const char *ssid);
 
 /**
  * @brief Get currently selected SSID
  * @return Pointer to selected SSID or nullptr if none selected
  */
-const char* wifi_get_selected_ssid();
+const char *wifi_get_selected_ssid();

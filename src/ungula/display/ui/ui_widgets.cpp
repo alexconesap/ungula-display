@@ -17,31 +17,33 @@ using namespace ungula::display;
 // PANEL/CONTAINER WIDGETS
 // ============================================================================
 
-void ui_draw_panel(int pos_x, int pos_y, int width, int height, uint16_t fill_color,
-                   uint16_t border_color, int radius) {
+void ui_draw_panel(int pos_x, int pos_y, int width, int height, uint16_t fill_color, uint16_t border_color, int radius)
+{
     gfx.fillRoundRect(pos_x, pos_y, width, height, radius, fill_color);
     if (border_color != 0) {
         gfx.drawRoundRect(pos_x, pos_y, width, height, radius, border_color);
     }
 }
 
-void ui_draw_content_frame() {
-    gfx.fillRoundRect(UI_CONTENT_X + 1, UI_CONTENT_Y + 1, UI_CONTENT_WIDTH - 2,
-                      UI_CONTENT_HEIGHT - 2, UI_RADIUS_NORMAL, UI_COLOR_BG_PANEL);
-    gfx.drawRoundRect(UI_CONTENT_X, UI_CONTENT_Y, UI_CONTENT_WIDTH, UI_CONTENT_HEIGHT,
-                      UI_RADIUS_NORMAL, UI_COLOR_BORDER);
+void ui_draw_content_frame()
+{
+    gfx.fillRoundRect(UI_CONTENT_X + 1, UI_CONTENT_Y + 1, UI_CONTENT_WIDTH - 2, UI_CONTENT_HEIGHT - 2, UI_RADIUS_NORMAL,
+                      UI_COLOR_BG_PANEL);
+    gfx.drawRoundRect(UI_CONTENT_X, UI_CONTENT_Y, UI_CONTENT_WIDTH, UI_CONTENT_HEIGHT, UI_RADIUS_NORMAL,
+                      UI_COLOR_BORDER);
 }
 
 // White 1px border around the entire screen
-void ui_draw_box(int pos_x, int pos_y, int width, int height, uint16_t border_color,
-                 int border_width) {
+void ui_draw_box(int pos_x, int pos_y, int width, int height, uint16_t border_color, int border_width)
+{
     for (int i = 0; i < border_width; i++) {
         gfx.drawRect(pos_x + i, pos_y + i, width - (2 * i), height - (2 * i), border_color);
     }
 }
 
 // Clear screen
-void ui_clear(uint16_t background_color) {
+void ui_clear(uint16_t background_color)
+{
     gfx.fillScreen(background_color);
 }
 
@@ -49,8 +51,9 @@ void ui_clear(uint16_t background_color) {
 // BUTTON WIDGETS
 // ============================================================================
 
-void ui_draw_button(int pos_x, int pos_y, int width, int height, const char* text,
-                    uint16_t bg_color, uint16_t text_color, int text_size, int radius) {
+void ui_draw_button(int pos_x, int pos_y, int width, int height, const char *text, uint16_t bg_color,
+                    uint16_t text_color, int text_size, int radius)
+{
     gfx.fillRoundRect(pos_x, pos_y, width, height, radius, bg_color);
 
     // Calculate text position (centered)
@@ -61,9 +64,9 @@ void ui_draw_button(int pos_x, int pos_y, int width, int height, const char* tex
     gfx_drawCentreString(text, pos_x + width / 2, text_y);
 }
 
-void ui_draw_icon_button(int pos_x, int pos_y, int width, int height, const uint8_t* icon,
-                         int icon_w, int icon_h, uint16_t bg_color, uint16_t icon_color,
-                         int radius) {
+void ui_draw_icon_button(int pos_x, int pos_y, int width, int height, const uint8_t *icon, int icon_w, int icon_h,
+                         uint16_t bg_color, uint16_t icon_color, int radius)
+{
     gfx.fillRoundRect(pos_x, pos_y, width, height, radius, bg_color);
 
     // Center the icon
@@ -76,13 +79,14 @@ void ui_draw_icon_button(int pos_x, int pos_y, int width, int height, const uint
 // STATUS/INDICATOR WIDGETS
 // ============================================================================
 
-void ui_draw_led(int pos_x, int pos_y, bool is_on, int radius) {
+void ui_draw_led(int pos_x, int pos_y, bool is_on, int radius)
+{
     uint16_t color = is_on ? UI_COLOR_LED_ON : UI_COLOR_LED_OFF;
     gfx.fillCircle(pos_x, pos_y, radius, color);
 }
 
-void ui_draw_status_bar(int pos_x, int pos_y, int width, int height, const char* text,
-                        uint16_t bg_color) {
+void ui_draw_status_bar(int pos_x, int pos_y, int width, int height, const char *text, uint16_t bg_color)
+{
     gfx.fillRoundRect(pos_x, pos_y, width, height, UI_RADIUS_NORMAL, bg_color);
 
     gfx_set_font(UI_TEXT_SIZE_NORMAL);
@@ -94,8 +98,9 @@ void ui_draw_status_bar(int pos_x, int pos_y, int width, int height, const char*
 // VALUE DISPLAY WIDGETS
 // ============================================================================
 
-void ui_draw_value_box(int pos_x, int pos_y, int width, int height, const char* label,
-                       const char* value, const char* unit, uint16_t border_color) {
+void ui_draw_value_box(int pos_x, int pos_y, int width, int height, const char *label, const char *value,
+                       const char *unit, uint16_t border_color)
+{
     // Background
     gfx.fillRoundRect(pos_x, pos_y, width, height, UI_RADIUS_NORMAL, UI_COLOR_BG_DARK);
     gfx.drawRoundRect(pos_x, pos_y, width, height, UI_RADIUS_NORMAL, border_color);
@@ -121,7 +126,8 @@ void ui_draw_value_box(int pos_x, int pos_y, int width, int height, const char* 
     }
 }
 
-void ui_draw_temp_display(int pos_x, int pos_y, const char* label, int temp) {
+void ui_draw_temp_display(int pos_x, int pos_y, const char *label, int temp)
+{
     gfx_set_font(UI_TEXT_SIZE_NORMAL);
     gfx.setTextColor(UI_COLOR_TEXT_SECONDARY);
     gfx_setCursor(pos_x, pos_y);
@@ -153,14 +159,15 @@ void ui_draw_temp_display(int pos_x, int pos_y, const char* label, int temp) {
 // TEXT HELPERS
 // ============================================================================
 
-void ui_draw_text_centered(int pos_x, int pos_y, int width, const char* text, uint16_t color,
-                           int size) {
+void ui_draw_text_centered(int pos_x, int pos_y, int width, const char *text, uint16_t color, int size)
+{
     gfx_set_font(size);
     gfx.setTextColor(color);
     gfx_drawCentreString(text, pos_x + width / 2, pos_y);
 }
 
-void ui_draw_text(int pos_x, int pos_y, const char* text, uint16_t color, int size) {
+void ui_draw_text(int pos_x, int pos_y, const char *text, uint16_t color, int size)
+{
     gfx_set_font(size);
     gfx.setTextColor(color);
     gfx_setCursor(pos_x, pos_y);
@@ -171,23 +178,24 @@ void ui_draw_text(int pos_x, int pos_y, const char* text, uint16_t color, int si
 // TOUCH HELPERS
 // ============================================================================
 
-bool ui_touch_in_rect(int touch_x, int touch_y, int pos_x, int pos_y, int width, int height) {
-    return (touch_x >= pos_x && touch_x < pos_x + width && touch_y >= pos_y &&
-            touch_y < pos_y + height);
+bool ui_touch_in_rect(int touch_x, int touch_y, int pos_x, int pos_y, int width, int height)
+{
+    return (touch_x >= pos_x && touch_x < pos_x + width && touch_y >= pos_y && touch_y < pos_y + height);
 }
 
 // ============================================================================
 // MODAL HELPERS
 // ============================================================================
 
-void ui_draw_modal_backdrop() {
+void ui_draw_modal_backdrop()
+{
     // Draw a dithered dark overlay to create a strong dimming effect
     // Using black horizontal lines every 2 pixels for 50% coverage
     // This creates a darker effect than using UI_COLOR_BG_DARK
 
     // Draw black horizontal lines on even rows (50% coverage)
     for (int y = 0; y < UI_SCREEN_HEIGHT; y += 2) {
-        gfx.drawFastHLine(0, y, UI_SCREEN_WIDTH, 0x0000);  // Black
+        gfx.drawFastHLine(0, y, UI_SCREEN_WIDTH, 0x0000); // Black
     }
 }
 
@@ -195,7 +203,8 @@ void ui_draw_modal_backdrop() {
 // CLOSE BUTTON
 // ============================================================================
 
-void ui_draw_close_button(int pos_x, int pos_y, int size, bool pressed) {
+void ui_draw_close_button(int pos_x, int pos_y, int size, bool pressed)
+{
     // Background
     uint16_t bg_color = pressed ? UI_COLOR_BTN_PRESSED : UI_COLOR_DANGER;
     gfx.fillRoundRect(pos_x, pos_y, size, size, UI_RADIUS_SMALL, bg_color);
@@ -213,6 +222,7 @@ void ui_draw_close_button(int pos_x, int pos_y, int size, bool pressed) {
     }
 }
 
-bool ui_touch_on_close_button(int touch_x, int touch_y, int pos_x, int pos_y, int size) {
+bool ui_touch_on_close_button(int touch_x, int touch_y, int pos_x, int pos_y, int size)
+{
     return ui_touch_in_rect(touch_x, touch_y, pos_x, pos_y, size, size);
 }

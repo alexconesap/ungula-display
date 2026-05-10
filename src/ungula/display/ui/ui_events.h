@@ -22,7 +22,8 @@
 
 #include <cstdint>
 
-namespace ungula::display::ui {
+namespace ungula::display::ui
+{
 
     /// All possible UI events that screens can emit.
     /// Extend this enum for project-specific events if needed.
@@ -43,15 +44,15 @@ namespace ungula::display::ui {
         JOG_RIGHT_RELEASED,
 
         // Program management
-        PROGRAM_SELECTED,         // param1 = program index
-        PROGRAM_EDIT_REQUESTED,   // param1 = program index
-        PROGRAM_FIELD_SAVED,      // param1 = program index
-        PROGRAM_SETTINGS_CLOSED,  // param1 = edited program index
+        PROGRAM_SELECTED, // param1 = program index
+        PROGRAM_EDIT_REQUESTED, // param1 = program index
+        PROGRAM_FIELD_SAVED, // param1 = program index
+        PROGRAM_SETTINGS_CLOSED, // param1 = edited program index
 
         // WiFi
         WIFI_SCAN_REQUESTED,
-        WIFI_CONNECT,         // strParam = ssid, strParam2 = password
-        WIFI_ENABLE_CHANGED,  // param1 = enabled (1/0)
+        WIFI_CONNECT, // strParam = ssid, strParam2 = password
+        WIFI_ENABLE_CHANGED, // param1 = enabled (1/0)
 
         // System
         PAIRING_ENABLE,
@@ -64,12 +65,11 @@ namespace ungula::display::ui {
 
     /// A single UI event with optional parameters.
     struct UiEvent {
-            UiEventType type = UiEventType::NONE;
-            int32_t param1 = 0;
-            int32_t param2 = 0;
-            const char* strParam =
-                    nullptr;  // valid until the next event is pushed that uses strParam
-            const char* strParam2 = nullptr;
+        UiEventType type = UiEventType::NONE;
+        int32_t param1 = 0;
+        int32_t param2 = 0;
+        const char *strParam = nullptr; // valid until the next event is pushed that uses strParam
+        const char *strParam2 = nullptr;
     };
 
     /// Maximum events in the queue (power of 2 for efficient modulo)
@@ -79,13 +79,13 @@ namespace ungula::display::ui {
     void ui_event_init();
 
     /// Push an event into the queue. Silently dropped if the queue is full.
-    void ui_event_push(UiEventType type, int32_t p1 = 0, int32_t p2 = 0, const char* str = nullptr,
-                       const char* str2 = nullptr);
+    void ui_event_push(UiEventType type, int32_t p1 = 0, int32_t p2 = 0, const char *str = nullptr,
+                       const char *str2 = nullptr);
 
     /// Poll the next event from the queue. Returns true if an event was available.
-    bool ui_event_poll(UiEvent& out);
+    bool ui_event_poll(UiEvent &out);
 
     /// Check if there are pending events without consuming them.
     bool ui_event_pending();
 
-}  // namespace ungula::display::ui
+} // namespace ungula::display::ui

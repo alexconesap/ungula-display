@@ -11,12 +11,13 @@
 
 #include <cstring>
 
-namespace ungula::display::ui {
+namespace ungula::display::ui
+{
 
     // Static ring buffer — no heap, fixed size, single-producer single-consumer safe
     static UiEvent s_queue[UI_EVENT_QUEUE_SIZE];
-    static uint8_t s_head = 0;  // write position
-    static uint8_t s_tail = 0;  // read position
+    static uint8_t s_head = 0; // write position
+    static uint8_t s_tail = 0; // read position
 
     // Static buffers for string parameters (copied on push so the caller's memory can be
     // reused)
@@ -24,7 +25,8 @@ namespace ungula::display::ui {
     static char s_strBuf1[STR_BUF_SIZE];
     static char s_strBuf2[STR_BUF_SIZE];
 
-    void ui_event_init() {
+    void ui_event_init()
+    {
         s_head = 0;
         s_tail = 0;
         for (uint8_t i = 0; i < UI_EVENT_QUEUE_SIZE; ++i) {
@@ -32,14 +34,14 @@ namespace ungula::display::ui {
         }
     }
 
-    void ui_event_push(UiEventType type, int32_t p1, int32_t p2, const char* str,
-                       const char* str2) {
+    void ui_event_push(UiEventType type, int32_t p1, int32_t p2, const char *str, const char *str2)
+    {
         uint8_t next = (s_head + 1) & (UI_EVENT_QUEUE_SIZE - 1);
         if (next == s_tail) {
-            return;  // queue full, drop the event
+            return; // queue full, drop the event
         }
 
-        UiEvent& ev = s_queue[s_head];
+        UiEvent &ev = s_queue[s_head];
         ev.type = type;
         ev.param1 = p1;
         ev.param2 = p2;
@@ -64,9 +66,10 @@ namespace ungula::display::ui {
         s_head = next;
     }
 
-    bool ui_event_poll(UiEvent& out) {
+    bool ui_event_poll(UiEvent &out)
+    {
         if (s_tail == s_head) {
-            return false;  // empty
+            return false; // empty
         }
 
         out = s_queue[s_tail];
@@ -75,8 +78,9 @@ namespace ungula::display::ui {
         return true;
     }
 
-    bool ui_event_pending() {
+    bool ui_event_pending()
+    {
         return s_tail != s_head;
     }
 
-}  // namespace ungula::display::ui
+} // namespace ungula::display::ui
