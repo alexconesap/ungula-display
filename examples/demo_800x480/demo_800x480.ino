@@ -14,6 +14,13 @@
 
 #include <ungula/display.h>
 
+#if __has_include(<ungula/bsp/waveshare/boards/esp32s3_touch_lcd_7/board.h>)
+#include <ungula/bsp/waveshare/boards/esp32s3_touch_lcd_7/board.h>
+#define UNGULA_HAS_WAVESHARE_BSP 1
+#else
+#define UNGULA_HAS_WAVESHARE_BSP 0
+#endif
+
 // Button layout (centered on screen)
 static constexpr int BTN_W = 200;
 static constexpr int BTN_H = 70;
@@ -53,8 +60,18 @@ void setup()
     // Use default hardware config (Waveshare 7" 800x480)
     GfxConfig hw = GfxConfig::waveshare7inch();
 
-    // Initialize IO expander (backlight, reset)
-    ExpanderInit(hw.expander_sda, hw.expander_scl);
+    // Initialize CH422G/backlight on Waveshare boards (optional dependency).
+#if UNGULA_HAS_WAVESHARE_BSP
+    ungula::bsp::waveshare::lcd7::Config boardCfg{};
+    boardCfg.enableLcd = true;
+    boardCfg.enableTouch = true;
+    boardCfg.initialBacklight = ungula::bsp::waveshare::common::LEVEL_HIGH;
+    if (!ungula::bsp::waveshare::lcd7::init(boardCfg)) {
+        Serial.println("lcd7::init failed (CH422G not responding)");
+    }
+#else
+    Serial.println("UngulaBspWaveshare not installed: skipping CH422G init");
+#endif
 
     // Initialize display
     gfx_init(hw);
