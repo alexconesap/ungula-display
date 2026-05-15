@@ -18,7 +18,7 @@
 namespace ungula::display
 {
 
-    struct GfxConfig {
+struct GfxConfig {
         // -- Display resolution --
         int width = 800;
         int height = 480;
@@ -80,9 +80,9 @@ namespace ungula::display
         // Factory: Waveshare ESP32-S3-Touch-LCD-7 (800x480)
         static GfxConfig waveshare7inch()
         {
-            return GfxConfig{};
+                return GfxConfig{};
         }
-    };
+};
 
 } // namespace ungula::display
 

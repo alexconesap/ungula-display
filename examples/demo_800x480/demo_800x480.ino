@@ -36,72 +36,74 @@ int border_size = 0;
 
 void drawScreen()
 {
-    // Clear screen
-    ui_clear(UI_COLOR_BG_DARK);
+        // Clear screen
+        ui_clear(UI_COLOR_BG_DARK);
 
-    // White 1px border around the entire screen
-    ui_draw_box(0, 0, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT, UI_COLOR_TEXT_PRIMARY, border_size);
+        // White 1px border around the entire screen
+        ui_draw_box(0, 0, UI_SCREEN_WIDTH, UI_SCREEN_HEIGHT, UI_COLOR_TEXT_PRIMARY, border_size);
 
-    // Title centered at top
-    ui_draw_text_centered(0, TITLE_Y, UI_SCREEN_WIDTH, "UNGULA UI LIBRARY TEST", UI_COLOR_TEXT_PRIMARY,
-                          UI_TEXT_SIZE_LARGE);
+        // Title centered at top
+        ui_draw_text_centered(0, TITLE_Y, UI_SCREEN_WIDTH, "UNGULA UI LIBRARY TEST",
+                              UI_COLOR_TEXT_PRIMARY, UI_TEXT_SIZE_LARGE);
 
-    // START button (green)
-    ui_draw_button(START_X, BTN_Y, BTN_W, BTN_H, "+", UI_COLOR_BTN_SUCCESS, UI_COLOR_TEXT_PRIMARY, UI_TEXT_SIZE_LARGE);
+        // START button (green)
+        ui_draw_button(START_X, BTN_Y, BTN_W, BTN_H, "+", UI_COLOR_BTN_SUCCESS,
+                       UI_COLOR_TEXT_PRIMARY, UI_TEXT_SIZE_LARGE);
 
-    // STOP button (red)
-    ui_draw_button(STOP_X, BTN_Y, BTN_W, BTN_H, "-", UI_COLOR_BTN_DANGER, UI_COLOR_TEXT_PRIMARY, UI_TEXT_SIZE_LARGE);
+        // STOP button (red)
+        ui_draw_button(STOP_X, BTN_Y, BTN_W, BTN_H, "-", UI_COLOR_BTN_DANGER, UI_COLOR_TEXT_PRIMARY,
+                       UI_TEXT_SIZE_LARGE);
 }
 
 void setup()
 {
-    Serial.begin(115200);
+        Serial.begin(115200);
 
-    // Use default hardware config (Waveshare 7" 800x480)
-    GfxConfig hw = GfxConfig::waveshare7inch();
+        // Use default hardware config (Waveshare 7" 800x480)
+        GfxConfig hw = GfxConfig::waveshare7inch();
 
-    // Initialize CH422G/backlight on Waveshare boards (optional dependency).
+        // Initialize CH422G/backlight on Waveshare boards (optional dependency).
 #if UNGULA_HAS_WAVESHARE_BSP
-    ungula::bsp::waveshare::lcd7::Config boardCfg{};
-    boardCfg.enableLcd = true;
-    boardCfg.enableTouch = true;
-    boardCfg.initialBacklight = ungula::bsp::waveshare::common::LEVEL_HIGH;
-    if (!ungula::bsp::waveshare::lcd7::init(boardCfg)) {
-        Serial.println("lcd7::init failed (CH422G not responding)");
-    }
+        ungula::bsp::waveshare::lcd7::Config boardCfg{};
+        boardCfg.enableLcd = true;
+        boardCfg.enableTouch = true;
+        boardCfg.initialBacklight = ungula::bsp::waveshare::common::LEVEL_HIGH;
+        if (!ungula::bsp::waveshare::lcd7::init(boardCfg)) {
+                Serial.println("lcd7::init failed (CH422G not responding)");
+        }
 #else
-    Serial.println("UngulaBspWaveshare not installed: skipping CH422G init");
+        Serial.println("UngulaBspWaveshare not installed: skipping CH422G init");
 #endif
 
-    // Initialize display
-    gfx_init(hw);
+        // Initialize display
+        gfx_init(hw);
 
-    drawScreen();
-    Serial.println("UngulaDisplay demo ready (800x480)");
+        drawScreen();
+        Serial.println("UngulaDisplay demo ready (800x480)");
 }
 
 void loop()
 {
-    int32_t tx, ty;
-    if (!gfx_get_touch(&tx, &ty))
-        return;
+        int32_t tx, ty;
+        if (!gfx_get_touch(&tx, &ty))
+                return;
 
-    // Check START button
-    if (ui_touch_in_rect(tx, ty, START_X, BTN_Y, BTN_W, BTN_H)) {
-        ui_draw_button(START_X, BTN_Y, BTN_W, BTN_H, "+", UI_COLOR_BTN_PRESSED, UI_COLOR_TEXT_PRIMARY,
-                       UI_TEXT_SIZE_LARGE);
-        border_size += 5;
-        delay(200);
-    }
+        // Check START button
+        if (ui_touch_in_rect(tx, ty, START_X, BTN_Y, BTN_W, BTN_H)) {
+                ui_draw_button(START_X, BTN_Y, BTN_W, BTN_H, "+", UI_COLOR_BTN_PRESSED,
+                               UI_COLOR_TEXT_PRIMARY, UI_TEXT_SIZE_LARGE);
+                border_size += 5;
+                delay(200);
+        }
 
-    // Check STOP button
-    if (ui_touch_in_rect(tx, ty, STOP_X, BTN_Y, BTN_W, BTN_H)) {
-        ui_draw_button(STOP_X, BTN_Y, BTN_W, BTN_H, "-", UI_COLOR_BTN_PRESSED, UI_COLOR_TEXT_PRIMARY,
-                       UI_TEXT_SIZE_LARGE);
-        border_size -= 5;
-        delay(200);
-    }
+        // Check STOP button
+        if (ui_touch_in_rect(tx, ty, STOP_X, BTN_Y, BTN_W, BTN_H)) {
+                ui_draw_button(STOP_X, BTN_Y, BTN_W, BTN_H, "-", UI_COLOR_BTN_PRESSED,
+                               UI_COLOR_TEXT_PRIMARY, UI_TEXT_SIZE_LARGE);
+                border_size -= 5;
+                delay(200);
+        }
 
-    drawScreen();
-    delay(50); // Touch debounce
+        drawScreen();
+        delay(50); // Touch debounce
 }

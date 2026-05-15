@@ -25,9 +25,9 @@
 namespace ungula::display::ui
 {
 
-    /// All possible UI events that screens can emit.
-    /// Extend this enum for project-specific events if needed.
-    enum class UiEventType : uint8_t {
+/// All possible UI events that screens can emit.
+/// Extend this enum for project-specific events if needed.
+enum class UiEventType : uint8_t {
         NONE = 0,
 
         // Main screen controls
@@ -61,31 +61,31 @@ namespace ungula::display::ui
         CALIBRATION_STOP,
         OTA_UPDATE_REQUESTED,
         REBOOT_REQUESTED,
-    };
+};
 
-    /// A single UI event with optional parameters.
-    struct UiEvent {
+/// A single UI event with optional parameters.
+struct UiEvent {
         UiEventType type = UiEventType::NONE;
         int32_t param1 = 0;
         int32_t param2 = 0;
         const char *strParam = nullptr; // valid until the next event is pushed that uses strParam
         const char *strParam2 = nullptr;
-    };
+};
 
-    /// Maximum events in the queue (power of 2 for efficient modulo)
-    static constexpr uint8_t UI_EVENT_QUEUE_SIZE = 16;
+/// Maximum events in the queue (power of 2 for efficient modulo)
+static constexpr uint8_t UI_EVENT_QUEUE_SIZE = 16;
 
-    /// Initialize the event queue (call once at startup)
-    void ui_event_init();
+/// Initialize the event queue (call once at startup)
+void ui_event_init();
 
-    /// Push an event into the queue. Silently dropped if the queue is full.
-    void ui_event_push(UiEventType type, int32_t p1 = 0, int32_t p2 = 0, const char *str = nullptr,
-                       const char *str2 = nullptr);
+/// Push an event into the queue. Silently dropped if the queue is full.
+void ui_event_push(UiEventType type, int32_t p1 = 0, int32_t p2 = 0, const char *str = nullptr,
+                   const char *str2 = nullptr);
 
-    /// Poll the next event from the queue. Returns true if an event was available.
-    bool ui_event_poll(UiEvent &out);
+/// Poll the next event from the queue. Returns true if an event was available.
+bool ui_event_poll(UiEvent &out);
 
-    /// Check if there are pending events without consuming them.
-    bool ui_event_pending();
+/// Check if there are pending events without consuming them.
+bool ui_event_pending();
 
 } // namespace ungula::display::ui

@@ -42,7 +42,9 @@ typedef void (*keypad_cancel_callback_t)(void *user_data);
 
 // Calculate overall keypad dimensions
 #define KEYPAD_WIDTH (((KEYPAD_BTN_WIDTH + KEYPAD_BTN_GAP) * 3) + 24)
-#define KEYPAD_HEIGHT (((KEYPAD_BTN_HEIGHT + KEYPAD_BTN_GAP) * 4) + 120) // Title (50) + display (50) + gap + buttons
+#define KEYPAD_HEIGHT                                 \
+        (((KEYPAD_BTN_HEIGHT + KEYPAD_BTN_GAP) * 4) + \
+         120) // Title (50) + display (50) + gap + buttons
 
 // ============================================================================
 // PUBLIC API
@@ -59,10 +61,10 @@ typedef void (*keypad_cancel_callback_t)(void *user_data);
  * @param callback Function to call when value is confirmed
  * @param user_data User data passed to callback
  */
-void keypad_show(int pos_x, int pos_y, const char *title, int initial_value, int min_value, int max_value,
-                 keypad_callback_t callback, void *user_data = nullptr,
-                 keypad_cancel_callback_t cancel_callback = nullptr, bool password_mode = false, int max_digits = 0,
-                 bool anti_guess = false);
+void keypad_show(int pos_x, int pos_y, const char *title, int initial_value, int min_value,
+                 int max_value, keypad_callback_t callback, void *user_data = nullptr,
+                 keypad_cancel_callback_t cancel_callback = nullptr, bool password_mode = false,
+                 int max_digits = 0, bool anti_guess = false);
 
 /**
  * @brief Hide the keypad (cancel without saving)

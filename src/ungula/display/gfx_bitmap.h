@@ -16,7 +16,7 @@
 namespace ungula::display
 {
 
-    /**
+/**
      * @brief Draw a 1-bit monochrome bitmap (no scaling)
      *
      * Thin wrapper around LovyanGFX drawBitmap(). Each byte packs 8 pixels,
@@ -31,9 +31,10 @@ namespace ungula::display
      * @param height Bitmap height in pixels
      * @param color  Foreground color (RGB565)
      */
-    void gfx_draw_bitmap(int pos_x, int pos_y, const uint8_t *bitmap, int width, int height, uint16_t color);
+void gfx_draw_bitmap(int pos_x, int pos_y, const uint8_t *bitmap, int width, int height,
+                     uint16_t color);
 
-    /**
+/**
      * @brief Draw a 1-bit monochrome bitmap scaled to a different size
      *
      * Nearest-neighbor scaling. Each source byte packs 8 pixels, MSB first.
@@ -48,10 +49,10 @@ namespace ungula::display
      * @param dstH   Destination height in pixels
      * @param color  Foreground color (RGB565)
      */
-    void gfx_draw_bitmap_scaled(int32_t pos_x, int32_t pos_y, const uint8_t *bitmap, int srcW, int srcH, int dstW,
-                                int dstH, uint16_t color);
+void gfx_draw_bitmap_scaled(int32_t pos_x, int32_t pos_y, const uint8_t *bitmap, int srcW, int srcH,
+                            int dstW, int dstH, uint16_t color);
 
-    /**
+/**
      * @brief Draw a 2-bit indexed bitmap with a caller-supplied color palette
      *
      * Each byte packs 4 pixels (2 bits each, MSB first).
@@ -66,7 +67,7 @@ namespace ungula::display
      * @param height  Image height in pixels
      * @param palette Array of 4 RGB565 colors (index 0 is ignored/transparent)
      */
-    void gfx_draw_indexed_bitmap(int pos_x, int pos_y, const uint8_t *data, int width, int height,
-                                 const uint16_t palette[4]);
+void gfx_draw_indexed_bitmap(int pos_x, int pos_y, const uint8_t *data, int width, int height,
+                             const uint16_t palette[4]);
 
 } // namespace ungula::display
