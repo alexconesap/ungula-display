@@ -11,6 +11,35 @@ Master include: `<ungula/display.h>` (pulls every public header below).
 
 ---
 
+## LLM quick map
+
+- **Primary include**: `#include <ungula/display.h>`.
+- **Arduino discovery include**: `#include <ungula_display.h>` (forwarder only; host code should keep using the real header).
+- **Namespace root**: `ungula::display`.
+- **Language baseline**: C++17 minimum (examples avoid post-C++17 requirements).
+- **Supported architectures**: `esp32`.
+- **Read order for coding agents**: `Usage` (working patterns) -> `API` (symbols/signatures) -> `Lifecycle`/`Error handling`/`Threading` notes in this file.
+
+### Use-case index
+
+- [Use case: bring up the default 7" panel and draw something](#use-case-bring-up-the-default-7-panel-and-draw-something)
+- [Use case: poll touch and react to a button](#use-case-poll-touch-and-react-to-a-button)
+- [Use case: numeric keypad modal](#use-case-numeric-keypad-modal)
+- [Use case: text keyboard modal](#use-case-text-keyboard-modal)
+- [Use case: WiFi network selector](#use-case-wifi-network-selector)
+- [Use case: emit and consume UI events](#use-case-emit-and-consume-ui-events)
+- [Use case: draw a 1-bit logo / a 2-bit indexed logo](#use-case-draw-a-1-bit-logo-a-2-bit-indexed-logo)
+- [Use case: register a U8g2 font and use it for text](#use-case-register-a-u8g2-font-and-use-it-for-text)
+- [Use case: compensate font baseline drift across languages](#use-case-compensate-font-baseline-drift-across-languages)
+
+### LLM rules
+
+- Use only symbols and include paths documented in this file; do not infer extra public API from implementation files.
+- Prefer the use-case patterns here over ad-hoc rewrites; keep dependency wiring and lifecycle order identical unless the task explicitly changes API design.
+- Treat headers under `detail/`, `platform/`, and `platforms/` as internal unless this document calls them out as public.
+- If required behavior is missing from the documented API, report the gap explicitly instead of inventing new public symbols.
+
+
 ## Usage
 
 ### Use case: bring up the default 7" panel and draw something

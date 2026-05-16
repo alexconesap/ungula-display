@@ -2,11 +2,46 @@
 
 > **High-performance embedded C++ libraries for ESP32, STM32 and other MCUs** — UI stack for the Waveshare 7-inch RGB display. Supported targets: ESP32-S3 only.
 
+> **LLM usage note:** if this library is consumed from a coding AI workflow, explicitly point the agent to `API.md` first. `API.md` is the LLM-facing contract (public API + examples + constraints) and avoids wasting time/tokens scanning source files and this human-oriented README.
+
 Display and UI widget library for ESP32-S3 RGB touchscreens. Uses LovyanGFX for graphics, GT911 for capacitive touch via I2C, and ESP_IOExpander for the CH422G IO expander.
 
 > **Portability note**: This library is intended for internal Vasis Medical projects that use the same ESP32-S3 RGB touchscreen hardware (Waveshare 7" or compatible). While the display resolution and pin mapping are configurable via `GfxConfig`, the UI widgets contain hardcoded visual element positions, sizes, and color values tuned for 800x480 screens. The theme colors and layout constants would need rework for a significantly different display. This is not a general-purpose UI framework.
 
 Hardware configuration (resolution, pins, timing, pixel clock) is passed as a struct to `gfx_init()`. Defaults match the Waveshare ESP32-S3-Touch-LCD-7 (800x480).
+
+## Table of Contents
+
+- [Quick Start](#quick-start)
+  - [Custom Display](#custom-display)
+- [Examples](#examples)
+  - [Touch Handling](#touch-handling)
+  - [Building a Screen](#building-a-screen)
+  - [Numeric Input (Keypad)](#numeric-input-keypad)
+  - [Text Input (Keyboard)](#text-input-keyboard)
+  - [WiFi Selector](#wifi-selector)
+- [Image to Array Tool](#image-to-array-tool)
+  - [Monochrome (1-bit)](#monochrome-1-bit)
+  - [Color (2-bit indexed)](#color-2-bit-indexed)
+  - [Options](#options)
+  - [Saving to a file](#saving-to-a-file)
+- [Using the logo](#using-the-logo)
+  - [Drawing a 2-bit Indexed Bitmap](#drawing-a-2-bit-indexed-bitmap)
+  - [Requirements](#requirements)
+- [Display Hardware](#display-hardware)
+  - [I2C Bus Layout](#i2c-bus-layout)
+- [IO Expander](#io-expander)
+- [Theme Colors](#theme-colors)
+- [Text Vertical Offset](#text-vertical-offset)
+  - [How it works](#how-it-works)
+  - [Text wrappers](#text-wrappers)
+  - [When to use direct calls](#when-to-use-direct-calls)
+  - [Integration with lib_i18n](#integration-with-libi18n)
+- [Demo Sketches](#demo-sketches)
+- [Dependencies](#dependencies)
+- [Acknowledgements](#acknowledgements)
+- [License](#license)
+- [Arduino CLI symlink note (rarely relevant)](#arduino-cli-symlink-note-rarely-relevant)
 
 ## Quick Start
 
@@ -15,7 +50,6 @@ Hardware configuration (resolution, pins, timing, pixel clock) is passed as a st
 
 // Use default hardware config (Waveshare 7" 800x480)
 GfxConfig hw = GfxConfig::waveshare7inch();
-ExpanderInit(hw.expander_sda, hw.expander_scl);
 gfx_init(hw);
 
 // Draw something
@@ -263,17 +297,16 @@ pip install Pillow
 
 The ESP32-S3 GPIO matrix allows both on the same physical pins (SDA=8, SCL=9).
 
-## IO Expander
+## IO Expander (external dependency)
 
-The backlight and reset pins go through a CH422G IO expander, so you need to initialize it before the display will show anything:
+Backlight and reset control on Waveshare boards uses a CH422G expander, but `ExpanderInit(...)`, `BLset(...)`, and `BLblink()` are not part of `lib_display`.
 
-```cpp
-#include <ungula/display.h>
+Use one of these options:
 
-ExpanderInit(8, 9);   // I2C SDA, SCL (defaults)
-BLset(HIGH);          // turn on backlight
-BLblink();            // visual feedback blink
-```
+- Initialize the expander through `lib_bsp_waveshare` before `gfx_init(...)`.
+- Or call the external `ESP_IOExpander` API directly from your host project.
+
+`lib_display` itself only handles graphics/touch/UI once the board IO layer is already up.
 
 ## Theme Colors
 
