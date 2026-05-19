@@ -4,6 +4,8 @@
 
 > **LLM usage note:** if this library is consumed from a coding AI workflow, explicitly point the agent to `API.md` first. `API.md` is the LLM-facing contract (public API + examples + constraints) and avoids wasting time/tokens scanning source files and this human-oriented README.
 
+> **Warning - Active Development:** This library is under active architecture work to support multiple projects in parallel. Its structure is not finalized yet and may change without notice while this work is in progress. Updates are currently frequent (often daily). Target for structural freeze and stable `v1.0.0`: **June 2026**.
+
 Display and UI widget library for ESP32-S3 RGB touchscreens. Uses LovyanGFX for graphics, GT911 for capacitive touch via I2C, and ESP_IOExpander for the CH422G IO expander.
 
 > **Portability note**: This library is intended for internal Vasis Medical projects that use the same ESP32-S3 RGB touchscreen hardware (Waveshare 7" or compatible). While the display resolution and pin mapping are configurable via `GfxConfig`, the UI widgets contain hardcoded visual element positions, sizes, and color values tuned for 800x480 screens. The theme colors and layout constants would need rework for a significantly different display. This is not a general-purpose UI framework.
@@ -12,6 +14,7 @@ Hardware configuration (resolution, pins, timing, pixel clock) is passed as a st
 
 ## Table of Contents
 
+- [C++ Compatibility](#c-compatibility)
 - [Quick Start](#quick-start)
   - [Custom Display](#custom-display)
 - [Examples](#examples)
@@ -30,7 +33,7 @@ Hardware configuration (resolution, pins, timing, pixel clock) is passed as a st
   - [Requirements](#requirements)
 - [Display Hardware](#display-hardware)
   - [I2C Bus Layout](#i2c-bus-layout)
-- [IO Expander](#io-expander)
+- [IO Expander (external dependency)](#io-expander-external-dependency)
 - [Theme Colors](#theme-colors)
 - [Text Vertical Offset](#text-vertical-offset)
   - [How it works](#how-it-works)
@@ -42,6 +45,12 @@ Hardware configuration (resolution, pins, timing, pixel clock) is passed as a st
 - [Acknowledgements](#acknowledgements)
 - [License](#license)
 - [Arduino CLI symlink note (rarely relevant)](#arduino-cli-symlink-note-rarely-relevant)
+
+## C++ Compatibility
+
+- **Own source minimum**: `C++17`.
+- **Effective minimum for consumers**: `C++17`.
+- **Dependency impact**: Declared internal dependency `UngulaCore` is `C++17`.
 
 ## Quick Start
 
