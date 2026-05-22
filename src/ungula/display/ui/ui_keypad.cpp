@@ -169,15 +169,19 @@ static void draw_display()
                         // configured offset so the user sees the value in
                         // real-world units while we keep an integer
                         // internally (callback still receives s_value).
+                        // Local clamp gives the compiler a bound it can see
+                        // for the `%0*d` width — avoids a format-truncation
+                        // warning when the keypad's clamp in keypad_show()
+                        // isn't visible from here.
+                        const int dp = (s_decimal_places > 9) ? 9 : s_decimal_places;
                         int divisor = 1;
-                        for (int i = 0; i < s_decimal_places; ++i)
+                        for (int i = 0; i < dp; ++i)
                                 divisor *= 10;
                         const bool neg = s_value < 0;
                         const int abs_value = neg ? -s_value : s_value;
                         const int whole = abs_value / divisor;
                         const int frac = abs_value % divisor;
-                        snprintf(buf, sizeof(buf), "%s%d.%0*d", neg ? "-" : "", whole,
-                                 s_decimal_places, frac);
+                        snprintf(buf, sizeof(buf), "%s%d.%0*d", neg ? "-" : "", whole, dp, frac);
                 } else {
                         snprintf(buf, sizeof(buf), "%d", s_value);
                 }
