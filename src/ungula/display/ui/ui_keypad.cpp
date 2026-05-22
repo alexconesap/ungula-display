@@ -24,6 +24,7 @@ static int s_x = 0;
 static int s_y = 0;
 static char s_title[64];
 static int s_value = 0;
+static int s_decimal_places = 0; // 0 = integer; >0 = fixed-point display
 static int s_min_value = 0;
 static int s_max_value = 9999;
 static keypad_callback_t s_callback = nullptr;
@@ -163,7 +164,23 @@ static void draw_display()
                 }
                 buf[s_digit_count] = '\0';
         } else {
-                snprintf(buf, sizeof(buf), "%d", s_value);
+                if (s_decimal_places > 0) {
+                        // Fixed-point display. Insert a decimal point at the
+                        // configured offset so the user sees the value in
+                        // real-world units while we keep an integer
+                        // internally (callback still receives s_value).
+                        int divisor = 1;
+                        for (int i = 0; i < s_decimal_places; ++i)
+                                divisor *= 10;
+                        const bool neg = s_value < 0;
+                        const int abs_value = neg ? -s_value : s_value;
+                        const int whole = abs_value / divisor;
+                        const int frac = abs_value % divisor;
+                        snprintf(buf, sizeof(buf), "%s%d.%0*d", neg ? "-" : "", whole,
+                                 s_decimal_places, frac);
+                } else {
+                        snprintf(buf, sizeof(buf), "%d", s_value);
+                }
         }
 
         gfx_set_font(UI_TEXT_SIZE_LARGE);
@@ -272,7 +289,7 @@ static void process_action(int action)
 void keypad_show(int pos_x, int pos_y, const char *title, int initial_value, int min_value,
                  int max_value, keypad_callback_t callback, void *user_data,
                  keypad_cancel_callback_t cancel_callback, bool password_mode, int max_digits,
-                 bool anti_guess)
+                 bool anti_guess, int decimal_places)
 {
         s_x = pos_x;
         s_y = pos_y;
@@ -284,6 +301,7 @@ void keypad_show(int pos_x, int pos_y, const char *title, int initial_value, int
         s_cancel_callback = cancel_callback;
         s_password_mode = password_mode;
         s_anti_guess = anti_guess;
+        s_decimal_places = (decimal_places >= 0 && decimal_places <= 9) ? decimal_places : 0;
 
         if (anti_guess) {
                 // Anti-guess mode: allow up to 10 digits, extract last 4 on confirm

@@ -60,11 +60,17 @@ typedef void (*keypad_cancel_callback_t)(void *user_data);
  * @param max_value Maximum allowed value
  * @param callback Function to call when value is confirmed
  * @param user_data User data passed to callback
+ * @param decimal_places Display-only decimal-point position. When > 0 the
+ *                      value is shown as fixed-point (e.g. decimal_places=3
+ *                      renders an integer 25000 as "25.000"). The stored
+ *                      value the callback receives is still the raw integer
+ *                      — host code converts to/from real-world units at
+ *                      its boundary. Default 0 = pure integer entry.
  */
 void keypad_show(int pos_x, int pos_y, const char *title, int initial_value, int min_value,
                  int max_value, keypad_callback_t callback, void *user_data = nullptr,
                  keypad_cancel_callback_t cancel_callback = nullptr, bool password_mode = false,
-                 int max_digits = 0, bool anti_guess = false);
+                 int max_digits = 0, bool anti_guess = false, int decimal_places = 0);
 
 /**
  * @brief Hide the keypad (cancel without saving)

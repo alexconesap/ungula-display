@@ -43,6 +43,10 @@ enum class UiEventType : uint8_t {
         JOG_RIGHT_PRESSED,
         JOG_RIGHT_RELEASED,
 
+        // Project-specific: mandrel single-step rotation (Wendy)
+        MANDREL_STEP_FWD_PRESSED,
+        MANDREL_STEP_BACK_PRESSED,
+
         // Program management
         PROGRAM_SELECTED, // param1 = program index
         PROGRAM_EDIT_REQUESTED, // param1 = program index
