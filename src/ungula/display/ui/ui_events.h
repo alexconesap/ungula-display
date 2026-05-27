@@ -47,6 +47,10 @@ enum class UiEventType : uint8_t {
         MANDREL_STEP_FWD_PRESSED,
         MANDREL_STEP_BACK_PRESSED,
 
+        // Project-specific: reset-to-zero (Wendy) — carriage position, dancer
+        // encoders and load cell all re-zeroed to current readings.
+        ZERO_ALL_PRESSED,
+
         // Program management
         PROGRAM_SELECTED, // param1 = program index
         PROGRAM_EDIT_REQUESTED, // param1 = program index
