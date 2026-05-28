@@ -51,6 +51,15 @@ enum class UiEventType : uint8_t {
         // encoders and load cell all re-zeroed to current readings.
         ZERO_ALL_PRESSED,
 
+        // Project-specific hold gestures (Wendy). T+/T- held → drive tension to
+        // the program target / to zero. Load/Unload held → continuous mandrel
+        // rotation until release (MANDREL_ROTATE_STOP).
+        TENSION_TO_TARGET_PRESSED,
+        TENSION_TO_ZERO_PRESSED,
+        MANDREL_ROTATE_FWD_PRESSED,
+        MANDREL_ROTATE_BACK_PRESSED,
+        MANDREL_ROTATE_STOP_PRESSED,
+
         // Program management
         PROGRAM_SELECTED, // param1 = program index
         PROGRAM_EDIT_REQUESTED, // param1 = program index
