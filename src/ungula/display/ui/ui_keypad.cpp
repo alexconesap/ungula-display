@@ -156,7 +156,13 @@ static void draw_display()
         gfx.drawRoundRect(disp_x, disp_y, disp_w, disp_h, UI_RADIUS_SMALL, UI_COLOR_BORDER);
 
         // Value text
-        char buf[16];
+        // 24 bytes covers the worst-case fixed-point format the compiler
+        // can prove: sign(1) + whole(up to 10 digits for INT_MAX) + '.'(1) +
+        // frac(up to 9 digits, the dp clamp below) + null(1) = 22. Bumped to
+        // 24 to silence -Wformat-truncation without needing per-caller
+        // analysis. Real keypads cap s_value via keypad_show()'s min/max,
+        // so actual usage stays well under this.
+        char buf[24];
         if (s_password_mode) {
                 // Show asterisks for each entered digit
                 for (int i = 0; i < s_digit_count && i < (int)sizeof(buf) - 1; i++) {
