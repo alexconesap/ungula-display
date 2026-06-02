@@ -134,8 +134,11 @@ extern LGFX gfx;
 /**
      * @brief Initialize the display with the given hardware configuration
      * @param config Hardware config (default: Waveshare 7" 800x480)
+     * @return true on success; false if panel init failed OR the RGB
+     *         framebuffer (PSRAM) could not be allocated. On false, do NOT
+     *         draw — every primitive would fault writing to a null buffer.
      */
-void gfx_init(const GfxConfig &config = GfxConfig::waveshare7inch());
+bool gfx_init(const GfxConfig &config = GfxConfig::waveshare7inch());
 
 /**
      * @brief Get touch coordinates if screen is being touched

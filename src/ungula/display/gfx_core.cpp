@@ -18,11 +18,22 @@ namespace ungula::display
 // Global display instance (configured in gfx_init, not in constructor)
 LGFX gfx;
 
-void gfx_init(const GfxConfig &config)
+bool gfx_init(const GfxConfig &config)
 {
         gfx.configure(config);
-        gfx.init();
+        if (!gfx.init()) {
+                return false;
+        }
+        // The RGB panel's framebuffer is allocated in PSRAM. If that alloc
+        // failed (PSRAM disabled or exhausted), the bus DMA buffer is null and
+        // every subsequent draw would fault (StoreProhibited writing to 0x0).
+        // Report it so the host degrades gracefully instead of crashing on use.
+        // (No logging here — logging is a host responsibility for lib_* code.)
+        if (gfx._bus_instance.getDMABuffer(0) == nullptr) {
+                return false;
+        }
         gfx.setRotation(config.rotation);
+        return true;
 }
 
 bool gfx_get_touch(int32_t *pos_x, int32_t *pos_y)
