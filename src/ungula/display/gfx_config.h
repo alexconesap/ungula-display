@@ -48,7 +48,17 @@ struct GfxConfig {
         int8_t pin_vsync = 3;
         int8_t pin_hsync = 46;
         int8_t pin_pclk = 7;
-        uint32_t freq_write = 14000000; // 14 MHz pixel clock
+        // 14 MHz pixel clock (~32.7 Hz refresh at 840x510 total). DO NOT lower:
+        // dropping the PCLK stretches the sync porch durations (counted in PCLK
+        // cycles) past this panel controller's lock window. 12 MHz sits right at
+        // the edge (locked once, then showed colour garbage after a power
+        // cycle); 11 MHz is fully out of range. So the pixel clock is NOT a
+        // viable lever for the cold-draw MSPI-stall flicker — the real fix is an
+        // esp_lcd bounce buffer (independent of the clock). 14 MHz displays
+        // reliably.
+        // uint32_t freq_write = 14000000;
+        // Required for compiling directly with ESP-IDF 5.5 (not Arduino)
+        uint32_t freq_write = 14000000;
 
         // -- Display timing --
         uint8_t hsync_polarity = 0;
