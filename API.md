@@ -174,41 +174,6 @@ if (wifi_selector_is_visible()) {
 When to use: in-app WiFi provisioning UI. Scanning is delegated to the
 host application via the scan callback.
 
-### Use case: emit and consume UI events
-
-```cpp
-#include <ungula/display.h>
-
-using ungula::ui::UiEvent;
-using ungula::ui::UiEventType;
-using ungula::ui::ui_event_init;
-using ungula::ui::ui_event_push;
-using ungula::ui::ui_event_poll;
-
-void setup() {
-    ui_event_init();
-    // inside a touch handler:
-    ui_event_push(UiEventType::START_PRESSED);
-}
-
-void loop() {
-    UiEvent ev;
-    while (ui_event_poll(ev)) {
-        switch (ev.type) {
-            case UiEventType::START_PRESSED: /* ... */ break;
-            case UiEventType::WIFI_CONNECT:
-                // ev.strParam = ssid, ev.strParam2 = password
-                break;
-            default: break;
-        }
-    }
-}
-```
-
-When to use: decouple screen touch logic from domain code. Bounded
-ring buffer of `UI_EVENT_QUEUE_SIZE` (16) events; overflow is silently
-dropped.
-
 ### Use case: draw a 1-bit logo / a 2-bit indexed logo
 
 ```cpp
@@ -275,8 +240,6 @@ LovyanGFX shape calls (`gfx.fillRect`, etc.) draw at exact pixels.
 | `wifi_enable_callback_t` | `ui/ui_wifi.h` | `void(*)(bool enabled, void* user_data)`. |
 | `enum WifiStringId` | `ui/ui_wifi.h` | i18n string IDs (`WIFI_STR_TITLE`, `WIFI_STR_SCANNING`, ...). |
 | `wifi_string_hook_t` | `ui/ui_wifi.h` | `const char*(*)(WifiStringId)` — i18n provider. |
-| `ungula::ui::UiEventType` | `ui/ui_events.h` | Enum of UI events (`HOME_PRESSED`, `START_PRESSED`, `WIFI_CONNECT`, ...). |
-| `ungula::ui::UiEvent` | `ui/ui_events.h` | `{ UiEventType type; int32_t param1, param2; const char* strParam, *strParam2; }`. |
 
 ### Theme constants (`ui/ui_theme.h`)
 
@@ -410,16 +373,9 @@ Macro: `TOUCH_IN_RECT(tx,ty,x,y,w,h)` (`ui/ui_macros.h`).
   `const char* wifi_get_selected_ssid()`
 - Layout macros: `WIFI_SELECTOR_WIDTH=780`, `WIFI_SELECTOR_HEIGHT=390`.
 
-### UI event queue (`ui/ui_events.h`, namespace `ungula::ui`)
-
-- `void ui_event_init();`
-- `void ui_event_push(UiEventType type, int32_t p1=0, int32_t p2=0,
-  const char* str=nullptr, const char* str2=nullptr);`
-- `bool ui_event_poll(UiEvent& out);`
-- `bool ui_event_pending();`
-- Capacity: `UI_EVENT_QUEUE_SIZE = 16`. Overflow drops new events.
-  `strParam`/`strParam2` lifetime: until the next push that uses the
-  same slot — pass pointers to static or long-lived storage.
+> The UI event queue moved to `lib_station_ui` (`ungula::station_ui`,
+> `ungula/station_ui/ui_events.h`). lib_display is rendering + input widgets
+> only; it does not carry the application event vocabulary.
 
 ---
 
@@ -430,12 +386,11 @@ Macro: `TOUCH_IN_RECT(tx,ty,x,y,w,h)` (`ui/ui_macros.h`).
 2. `gfx_init(config)` once in `setup()`.
 3. (Optional) `gfx_set_font_hook(...)`, `gfx_set_font_y_offset(...)`,
    `gfx_register_u8g2_font(...)`.
-4. (Optional) `ungula::ui::ui_event_init()` if you use the event queue.
-5. Per frame: poll `gfx_get_touch()`. If a modal is visible
+4. Per frame: poll `gfx_get_touch()`. If a modal is visible
    (`keypad_is_visible()`, `keyboard_is_visible()`,
    `wifi_selector_is_visible()`) route the touch to its
    `*_handle_touch()` and skip your own touch logic that frame.
-6. Modals are torn down by their own Enter/Cancel/Close buttons; the
+5. Modals are torn down by their own Enter/Cancel/Close buttons; the
    confirm callback fires before the modal hides itself. Call your
    own redraw from the cancel callback if needed.
 
@@ -443,8 +398,8 @@ Macro: `TOUCH_IN_RECT(tx,ty,x,y,w,h)` (`ui/ui_macros.h`).
 
 ## Threading / timing / hardware notes
 
-- Single-threaded Arduino loop assumed. The event queue, modals, and
-  global `gfx` are not interrupt-safe and not thread-safe.
+- Single-threaded Arduino loop assumed. The modals and global `gfx` are
+  not interrupt-safe and not thread-safe.
 - `gfx_get_touch()` and the modal draw paths can be slow (full-screen
   redraws on a 16-bit RGB bus). Don't call them from ISRs or RTOS
   high-priority tasks.

@@ -19,17 +19,13 @@
 #include "ungula/display/gfx_config.h"
 #include "ungula/display/gfx_core.h"
 
-// UI components
-#include "ungula/display/ui/ui_events.h"
+// UI components (rendering + input widgets only)
 #include "ungula/display/ui/ui_keyboard.h"
 #include "ungula/display/ui/ui_keypad.h"
 #include "ungula/display/ui/ui_macros.h"
 #include "ungula/display/ui/ui_theme.h"
 #include "ungula/display/ui/ui_widgets.h"
 #include "ungula/display/ui/ui_wifi.h"
-
-// WiFi channel enum (from UngulaNet)
-#include <ungula/net/wifi/wifi_channel.h>
 
 // Backwards-compatibility shim: lift the entire ungula::display namespace into
 // the global scope so consumers that still use bare `GfxCore`, `GfxConfig`,
