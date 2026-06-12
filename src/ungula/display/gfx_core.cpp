@@ -157,23 +157,23 @@ static uint8_t s_custom_font_count = 0;
 const void *gfx_builtin_font(GfxFont font)
 {
         switch (font) {
-        case GfxFont::SANS_9PT:
+        case GfxFont::Sans9pt:
                 return &fonts::FreeSans9pt7b;
-        case GfxFont::SANS_12PT:
+        case GfxFont::Sans12pt:
                 return &fonts::FreeSans12pt7b;
-        case GfxFont::SANS_18PT:
+        case GfxFont::Sans18pt:
                 return &fonts::FreeSans18pt7b;
-        case GfxFont::SANS_24PT:
+        case GfxFont::Sans24pt:
                 return &fonts::FreeSans24pt7b;
-        case GfxFont::MONO_9PT:
+        case GfxFont::Mono9pt:
                 return &fonts::FreeMono9pt7b;
-        case GfxFont::MONO_12PT:
+        case GfxFont::Mono12pt:
                 return &fonts::FreeMono12pt7b;
-        case GfxFont::MONO_18PT:
+        case GfxFont::Mono18pt:
                 return &fonts::FreeMono18pt7b;
-        case GfxFont::MONO_24PT:
+        case GfxFont::Mono24pt:
                 return &fonts::FreeMono24pt7b;
-        case GfxFont::TINY:
+        case GfxFont::Tiny:
                 return &fonts::Font0;
         }
         __builtin_unreachable();

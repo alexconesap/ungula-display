@@ -213,15 +213,15 @@ void gfx_setTextSize(float size);
 
 /// Built-in font identifiers (maps to LovyanGFX FreeSans/FreeMono fonts)
 enum class GfxFont : uint8_t {
-        SANS_9PT, // FreeSans9pt7b
-        SANS_12PT, // FreeSans12pt7b
-        SANS_18PT, // FreeSans18pt7b
-        SANS_24PT, // FreeSans24pt7b
-        MONO_9PT, // FreeMono9pt7b
-        MONO_12PT, // FreeMono12pt7b
-        MONO_18PT, // FreeMono18pt7b
-        MONO_24PT, // FreeMono24pt7b
-        TINY, // Font0 (built-in small pixel font)
+        Sans9pt, // FreeSans9pt7b
+        Sans12pt, // FreeSans12pt7b
+        Sans18pt, // FreeSans18pt7b
+        Sans24pt, // FreeSans24pt7b
+        Mono9pt, // FreeMono9pt7b
+        Mono12pt, // FreeMono12pt7b
+        Mono18pt, // FreeMono18pt7b
+        Mono24pt, // FreeMono24pt7b
+        Tiny, // Font0 (built-in small pixel font)
 };
 
 /// Get a built-in font pointer by identifier
