@@ -229,7 +229,7 @@ LovyanGFX shape calls (`gfx.fillRect`, etc.) draw at exact pixels.
 | --- | --- | --- |
 | `LGFX` | `display/gfx_core.h` | LovyanGFX subclass for ESP32-S3 RGB + GT911. Configured by `gfx_init()`; access via `extern LGFX gfx`. |
 | `GfxConfig` | `display/gfx_config.h` | Plain struct of resolution, pin map, RGB timing, touch I2C, rotation. Factory: `GfxConfig::waveshare7inch()`. |
-| `enum class GfxFont` | `display/gfx_core.h` | Built-in font IDs: `SANS_9PT/12PT/18PT/24PT`, `MONO_9PT/12PT/18PT/24PT`, `TINY`. |
+| `enum class GfxFont` | `display/gfx_core.h` | Built-in font IDs: `Sans9pt`, `Sans12pt`, `Sans18pt`, `Sans24pt`, `Mono9pt`, `Mono12pt`, `Mono18pt`, `Mono24pt`, `Tiny`. |
 | `gfx_font_hook_t` | `display/gfx_core.h` | `void(*)(int size)` — project-level font selector for `gfx_set_font()`. |
 | `keypad_callback_t` | `ui/ui_keypad.h` | `void(*)(int value, void* user_data)`. |
 | `keypad_cancel_callback_t` | `ui/ui_keypad.h` | `void(*)(void* user_data)`. |
@@ -238,7 +238,7 @@ LovyanGFX shape calls (`gfx.fillRect`, etc.) draw at exact pixels.
 | `wifi_connect_callback_t` | `ui/ui_wifi.h` | `void(*)(const char* ssid, const char* password, void* user_data)`. |
 | `wifi_scan_callback_t` | `ui/ui_wifi.h` | `void(*)(void* user_data)`. |
 | `wifi_enable_callback_t` | `ui/ui_wifi.h` | `void(*)(bool enabled, void* user_data)`. |
-| `enum WifiStringId` | `ui/ui_wifi.h` | i18n string IDs (`WIFI_STR_TITLE`, `WIFI_STR_SCANNING`, ...). |
+| `enum WifiStringId` | `ui/ui_wifi.h` | i18n string IDs (`StrTitle`, `StrScanning`, `StrNoNetworks`, `StrPushScan`, `StrBtnScan`, `StrBtnConnect`, `StrPasswordFor`, `StrEnable`, `StrCount`). |
 | `wifi_string_hook_t` | `ui/ui_wifi.h` | `const char*(*)(WifiStringId)` — i18n provider. |
 
 ### Theme constants (`ui/ui_theme.h`)
