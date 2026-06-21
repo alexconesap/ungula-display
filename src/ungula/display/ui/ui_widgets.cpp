@@ -56,13 +56,22 @@ void ui_clear(uint16_t background_color)
 void ui_draw_button(int pos_x, int pos_y, int width, int height, const char *text,
                     uint16_t bg_color, uint16_t text_color, int text_size, int radius)
 {
+        // Many call sites historically pass `false` (0) for this trailing arg
+        // (it used to be a "pressed" flag), which drew square corners. Treat any
+        // non-positive radius as the standard rounded default so buttons stay
+        // rounded everywhere without touching every caller.
+        if (radius <= 0) {
+                radius = UI_RADIUS_NORMAL;
+        }
         gfx.fillRoundRect(pos_x, pos_y, width, height, radius, bg_color);
 
-        // Calculate text position (centered)
+        // Calculate text position (centered). The builtin glyphs sit ~2 px low
+        // inside the box, so nudge up 2 px — the labels were consistently low
+        // across every project.
         gfx_set_font(text_size);
         gfx.setTextColor(text_color);
 
-        int text_y = pos_y + (height - (text_size * 8)) / 2;
+        int text_y = pos_y + (height - (text_size * 8)) / 2 - 2;
         gfx_drawCentreString(text, pos_x + width / 2, text_y);
 }
 

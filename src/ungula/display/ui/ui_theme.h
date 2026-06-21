@@ -40,6 +40,7 @@ using namespace ungula::display;
 #define UI_COLOR_TEXT_PRIMARY 0xFFFF // White - main text
 #define UI_COLOR_TEXT_SECONDARY 0x8496 // Grey - labels, secondary text
 #define UI_COLOR_TEXT_HEADER 0xEF7E // Off-white - header text
+#define UI_COLOR_TEXT_DISABLED 0x630C // Medium grey - disabled control text (on a normal button bg)
 
 // Border colors
 #define UI_COLOR_BORDER 0x19CB // Cyan - standard borders
